@@ -18,6 +18,7 @@ artifacts:
     - .next/**/*
     - locales/**/*
     - static/**/*
+    - scripts/**/*
     - package.json
     - next.config.js
     - tsconfig.json
