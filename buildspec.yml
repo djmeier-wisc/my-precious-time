@@ -7,7 +7,6 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - npm i -g next
       - npm install
   post_build:
     commands:
@@ -23,3 +22,7 @@ artifacts:
     - next.config.js
     - tsconfig.json
     - tsconfig.server.json
+cache:
+  paths:
+    - 'node_modules/**/*' # Cache `node_modules` for faster `yarn` or `npm i`
+    - '.next/cache/**/*' # Cache Next.js for faster application rebuilds
