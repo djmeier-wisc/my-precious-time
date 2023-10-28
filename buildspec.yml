@@ -7,11 +7,18 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - npm i -g next
       - npm install
-      - npm run build
   post_build:
     commands:
       - echo Build completed on `date`
+      - npm run build
 artifacts:
   files:
-    - **/*
+    - .next/**/*
+    - locales/**/*
+    - static/**/*
+    - package.json
+    - next.config.js
+    - tsconfig.json
+    - tsconfig.server.json
