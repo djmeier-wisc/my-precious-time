@@ -5,15 +5,21 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 80",
+    "start": "next start -p 3000",
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.8",
+    "@mui/material": "^5.14.15",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.3",
+    "@mui/x-date-pickers": "^6.17.0",
     "chart.js": "^4.4.0",
+    "dayjs": "^1.11.10",
     "next": "14.0.0",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
-    "react-datetime-picker": "^5.5.3",
     "react-dom": "^18",
     "react-select": "^5.7.7"
   },
