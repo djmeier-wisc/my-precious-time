@@ -18,7 +18,12 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="bg-orange-300 text-slate-800">
+          <p className="text-center py-1">🚧 Please excuse our mess, this site is under active development 🚧</p>
+        </div>
+        {children}
+      </body>
     </html>
   )
 }
