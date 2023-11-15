@@ -121,11 +121,11 @@ export default function DelayLineChart({ baseUrl }) {
     return (
 
         <div className="h-full w-full">
-            <div className="grid sm:grid-cols-4 gap-3">
-                <div className="col-span-1 justify-items-center">
+            <div className="grid sm:grid-cols-6 gap-3">
+                <div className="col-span-2 justify-items-center">
                     <DateTimePicker defaultValue={startDate} label="Start Date" onChange={setStartDate} className="w-full" />
                 </div>
-                <div className="col-span-1 justify-items-center">
+                <div className="col-span-2 justify-items-center">
                     <DateTimePicker defaultValue={endDate} label="End Date" onChange={setEndDate} className="w-full" />
                 </div>
                 <div className="col-span-1 justify-items-center">
