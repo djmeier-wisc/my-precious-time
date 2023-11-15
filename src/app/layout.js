@@ -4,6 +4,8 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import MainNav from './nav/navbar';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,9 +21,7 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </head>
       <body className={inter.className}>
-        <div className="bg-orange-300 text-slate-800">
-          <p className="text-center py-1">🚧 Please excuse our mess, this site is under active development 🚧</p>
-        </div>
+        <MainNav />
         {children}
       </body>
     </html>

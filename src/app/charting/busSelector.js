@@ -30,7 +30,7 @@ export default function BusSelector({ busOptions, setCurrBusList, currBusList })
     }
     return (
         <FormControl className="w-full">
-            <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+            <InputLabel id="demo-multiple-name-label">Line(s)</InputLabel>
             <Select
                 labelId="demo-multiple-name-label"
                 id="demo-multiple-name"
