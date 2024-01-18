@@ -24,6 +24,7 @@ ChartJS.register(
     Legend
 );
 import dayjs from 'dayjs';
+import { useChartContext } from "./chartContext";
 
 export const getMidnightTomorrow = () => {
     let date = new Date();
@@ -36,7 +37,8 @@ export const getMidnightSixDaysAgo = () => {
     date.setDate(date.getDate() - 7);
     return date;
 }
-export default function DelayLineChart({ baseUrl }) {
+export default function DelayLineChart() {
+    const {chartContext, setChartContext} = useChartContext();
     const DEFAULT_UNITS_SPAN = 7;
     const DEFAULT_START_DATE = getMidnightSixDaysAgo();
     const DEFAULT_END_DATE = getMidnightTomorrow();
@@ -55,23 +57,27 @@ export default function DelayLineChart({ baseUrl }) {
             y: {
                 title: {
                     display: true,
-                    text: "Minutes Difference from Schedule"
+                    text: chartContext.desc
                 }
             },
             x: {
                 title: {
                     display: true,
-                    text: "Date Measured"
+                    text: "Date"
                 }
             }
         }
     }
     useEffect(() => {
-        fetchGraphData();
-    }, [baseUrl, startDate, endDate, units, selectedBusStates]);
+        setFetchedData(false);
+        const delayInput = setTimeout(()=> {
+            fetchGraphData();
+        }, 500);
+        return () => clearTimeout(delayInput);
+    }, [chartContext, startDate, endDate, units, selectedBusStates]);
     useEffect(() => {
         fetchBusStateList();
-    }, [baseUrl]);
+    }, [chartContext]);
 
     let setUnitsConditionally = (change) => {
         let currUnits = change.target.value;
@@ -83,7 +89,7 @@ export default function DelayLineChart({ baseUrl }) {
         }
     }
     let fetchGraphData = () => {
-        let url = baseUrl;
+        let url = chartContext.url;
         if (startDate || endDate || units || selectedBusStates) {
             url += "?"
         }
@@ -95,27 +101,31 @@ export default function DelayLineChart({ baseUrl }) {
         url += params.join("&");
         console.log("getting URL", url);
         setFetchedData(false);
-        fetch(url).then(res => res.json()).then(data => {
-            setDataSets(data);
-            setFetchedData(true);
+        fetch(url).then(res => {
+            if(res.ok) return res.json();
+            setIsError(true);
         }).catch(err => {
             console.log(err)
             setFetchedData(false);
             setIsError(true);
+        }).then(data => {
+            setDataSets(data);
+            setFetchedData(true);
+            setIsError(false);
         });
     }
 
     async function fetchBusStateList() {
         fetch("/api/v1/getAllRouteNames")
-            .then(res => res.json())
+            .then(res => {
+                if(res.ok) return res.json();
+                return [];
+            })
             .then(res => setAllBusStates(res))
             .catch(err => {
                 console.log("Error retrieving all route names", err);
                 setAllBusStates(null);
             });
-        let busStates = await (await fetch("/api/v1/getAllRouteNames")).json();
-        console.log(baseUrl + "/v1/getAllRouteNames")
-        setAllBusStates(busStates);
     }
 
     return (

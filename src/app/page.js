@@ -6,35 +6,33 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { useState } from "react";
 import GraphTypeSelector from "./charting/graphTypeSelector";
 import GraphText from "./main-text/graph-text";
+import { CONST_AVG, CONST_MAX, CONST_PERC, ChartContextProvider} from "./charting/chartContext";
 
-export const URL_AVG = "/api/v1/average/allLines";
-export const URL_MAX = "/api/v1/max/allLines";
-export const URL_PERC = "/api/v1/percent/allLines";
+
 export default function Home() {
-  const [selectedGraph, setSelectedGraph] = useState(URL_AVG);
-  let selectorOptions = {
-    setSelectedGraph: setSelectedGraph, selectedGraph: selectedGraph};
   
   return (
-    <main className="h-full">
+    <ChartContextProvider>
+    <main className="h-screen">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <div className="grid grid-cols-2 lg:grid-cols-6 h-full">
-          <div className="col-span-2 px-3 bg-slate-800 h-full">
+          <div className="col-span-2 px-3 bg-slate-800">
             <GraphText />
             <div className="grid grid-rows-3 gap-4">
-              <GraphTypeSelector {...selectorOptions} url={URL_AVG} displayText="Average Delay in Minutes"  />
-              <GraphTypeSelector {...selectorOptions} url={URL_MAX} displayText="Max Delay in Minutes"  />
-              <GraphTypeSelector {...selectorOptions} url={URL_PERC} displayText="Percent on Time (within 5 minutes of schedule)"  />
+              <GraphTypeSelector curr={CONST_AVG} />
+              <GraphTypeSelector curr={CONST_MAX} />
+              <GraphTypeSelector curr={CONST_PERC} />
             </div>
           </div>
           <div className="col-span-4 bg-slate-300">
             <div className="px-3 pt-5">
-              <DelayLineChart baseUrl={selectedGraph} />
+              <DelayLineChart />
             </div>
 
           </div>
         </div>
       </LocalizationProvider>
     </main>
+    </ChartContextProvider>
   )
 }

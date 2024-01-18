@@ -11,7 +11,13 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import KofiButton from 'kofi-button';
 
-const pages = ['about', 'api', 'blog'];
+const pagesMap =
+    [
+        { url: 'https://github.com/djmeier-wisc', name: 'about' },
+        { url: '/api/webjars/swagger-ui/index.html', name: 'Api Reference' },
+        { url: '/blog', name: 'blog' }
+    ];
+
 
 export default function MainNav() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -25,14 +31,14 @@ export default function MainNav() {
     };
     const siteName = "MPT";
     return (
-        <AppBar position="static" className='border-solid border-b-4 border-slate-800 bg-slate-300 text-slate-800'>
+        <AppBar position="static" className='border-solid border-b-4 border-slate-800 bg-slate-300 text-slate-800 sticky top-0'>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
                         variant="h6"
                         noWrap
                         component="a"
-                        href=""
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -55,7 +61,7 @@ export default function MainNav() {
                             color="inherit"
                         >
                             <svg className="h-8 w-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                             </svg>
                         </IconButton>
                         <Menu
@@ -76,18 +82,19 @@ export default function MainNav() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem href={'/'+page} key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
+                            {pagesMap?.map((page) =>
+                                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                                    <a href={page.url}>
+                                        <Typography textAlign="center">{page.name}</Typography>
+                                    </a>
+                                </MenuItem>)}
                         </Menu>
                     </Box>
                     <Typography
                         variant="h5"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -102,19 +109,19 @@ export default function MainNav() {
                         {siteName}
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
+                        {pagesMap?.map((page) => (
                             <Button
-                                key={page}
+                                key={page.name}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, display: 'block' }}
-                                href={'/'+page}
+                                href={page.url}
                                 className='text-slate-700'
                             >
-                                {page}
+                                {page.name}
                             </Button>
                         ))}
                     </Box>
-                    <KofiButton color='#1e293b' title='Fund my AWS fees' kofiID='doug_meier'/>
+                    <KofiButton color='#1e293b' title='Fund my AWS fees' kofiID='doug_meier' />
                 </Toolbar>
             </Container>
         </AppBar>
