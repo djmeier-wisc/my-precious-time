@@ -14,7 +14,7 @@ phases:
       - npm run build
 artifacts:
   files:
-    - /out/**
+    - out/**
 cache:
   paths:
     - 'node_modules/**/*' # Cache `node_modules` for faster `yarn` or `npm i`
