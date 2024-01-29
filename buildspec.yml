@@ -14,14 +14,7 @@ phases:
       - npm run build
 artifacts:
   files:
-    - .next/**/*
-    - locales/**/*
-    - static/**/*
-    - scripts/**/*
-    - package.json
-    - next.config.js
-    - tsconfig.json
-    - tsconfig.server.json
+    - /out/**
 cache:
   paths:
     - 'node_modules/**/*' # Cache `node_modules` for faster `yarn` or `npm i`

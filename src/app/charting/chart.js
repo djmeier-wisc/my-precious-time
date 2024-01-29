@@ -116,7 +116,7 @@ export default function DelayLineChart() {
     }
 
     async function fetchBusStateList() {
-        fetch("/api/v1/getAllRouteNames")
+        fetch("https://api.my-precious-time.com/v1/getAllRouteNames")
             .then(res => {
                 if(res.ok) return res.json();
                 return [];
