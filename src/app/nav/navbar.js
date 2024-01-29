@@ -14,7 +14,7 @@ import KofiButton from 'kofi-button';
 const pagesMap =
     [
         { url: 'https://github.com/djmeier-wisc', name: 'about' },
-        { url: '/api/webjars/swagger-ui/index.html', name: 'Api Reference' },
+        { url: 'https://api.my-precious-time.com/webjars/swagger-ui/index.html', name: 'Api Reference' },
         { url: '/blog', name: 'blog' }
     ];
 
