@@ -31,7 +31,7 @@ export default function MainNav() {
     };
     const siteName = "MPT";
     return (
-        <AppBar position="static" className='border-solid border-b-4 border-slate-800 bg-slate-300 text-slate-800 sticky top-0'>
+        <AppBar position="static" className='border-solid border-b-4 border-slate-800 bg-slate-300 text-slate-800 sticky top-0' sx={{bgcolor: "rgb(203 213 225)", color: "rgb(30 41 59)"}}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
@@ -113,7 +113,7 @@ export default function MainNav() {
                             <Button
                                 key={page.name}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, display: 'block' }}
+                                sx={{ my: 2, display: 'block', color: "rgb(30 41 59)"}}
                                 href={page.url}
                                 className='text-slate-700'
                             >
