@@ -12,12 +12,7 @@ import {
 } from "chart.js";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Line } from "react-chartjs-2";
-import {
-  Checkbox,
-  CircularProgress,
-  FormControlLabel,
-  TextField,
-} from "@mui/material";
+import { CircularProgress, TextField } from "@mui/material";
 import BusSelector from "./busSelector";
 import ColorCheckbox from "./colorCheckbox";
 ChartJS.register(
