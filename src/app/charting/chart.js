@@ -51,6 +51,7 @@ export default function DelayLineChart() {
   const [units, setUnits] = useState(DEFAULT_UNITS_SPAN);
   const [unitsErr, setUnitsErr] = useState(null);
   const [allBusStates, setAllBusStates] = useState([]);
+  const [useColor, setUseColor] = useState(false);
   const [selectedBusStates, setSelectedBusStates] = useState([
     "A",
     "B",
@@ -85,7 +86,7 @@ export default function DelayLineChart() {
       fetchGraphData();
     }, 500);
     return () => clearTimeout(delayInput);
-  }, [chartContext, startDate, endDate, units, selectedBusStates]);
+  }, [chartContext, startDate, endDate, units, selectedBusStates, useColor]);
   useEffect(() => {
     fetchBusStateList();
   }, [chartContext]);
@@ -112,6 +113,7 @@ export default function DelayLineChart() {
       selectedBusStates.forEach((busState) =>
         params.push("routes=" + busState)
       );
+    params.push("useColor=" + useColor);
     url += params.join("&");
     console.log("getting URL", url);
     setFetchedData(false);
@@ -186,7 +188,7 @@ export default function DelayLineChart() {
           />
         </div>
         <div className="col-span-1 justify-items-center">
-          <ColorCheckbox />
+          <ColorCheckbox setColors={setUseColor} colors={useColor} />
         </div>
       </div>
       <div style={{ height: 500 }} className="h-full w-full">

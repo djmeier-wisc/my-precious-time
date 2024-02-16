@@ -2,20 +2,17 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { useState } from "react";
 
-export default function ColorCheckbox() {
+export default function ColorCheckbox({ setColors, colors }) {
   const [isChecked, setIsChecked] = useState(true);
   const handleCheck = () => {
     setIsChecked(!isChecked);
-    if (!isChecked) {
-      // return with colors - not sure why "not" actually *is* checked, but, whatever?
-    } else {
-      console.log("not!");
-    }
+    setColors(isChecked);
+    console.log(isChecked);
   };
   return (
     <div id="checkbox-div">
       <label htmlFor="checkbox" id="checkbox-label">
-        Use GTFS Colors
+        Metro Colors
       </label>
       <br />
       <input
