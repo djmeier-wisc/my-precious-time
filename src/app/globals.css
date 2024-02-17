@@ -25,3 +25,12 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+#checkbox-div {
+  text-align: center;
+}
+
+#checkbox-label {
+  font-size: x-small;
+  color: #000;
+}
