@@ -26,8 +26,10 @@
   },
   "devDependencies": {
     "autoprefixer": "^10",
-    "eslint": "^8",
+    "eslint": "^8.56.0",
+    "eslint-config-google": "^0.14.0",
     "eslint-config-next": "14.0.0",
+    "eslint-plugin-react": "^7.33.2",
     "postcss": "^8",
     "tailwindcss": "^3"
   }
