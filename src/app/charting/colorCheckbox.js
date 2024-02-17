@@ -7,7 +7,6 @@ export default function ColorCheckbox({ setColors, colors }) {
   const handleCheck = () => {
     setIsChecked(!isChecked);
     setColors(isChecked);
-    console.log(isChecked);
   };
   return (
     <div id="checkbox-div">
