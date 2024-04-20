@@ -50,13 +50,12 @@ function getUrlIfActOrUndefined(agency) {
 }
 
 function sortByStatus(agency1, agency2) {
-    console.log(agency1.name,mapStatusToInt(agency1?.status))
     return mapStatusToInt(agency1?.status) - mapStatusToInt(agency2?.status);
 }
 
 function mapStatusToInt(status) {
     if(status === "ACT") {
-        return 3;
+        return 1;
     } else if (status = "UNAVAILABLE") {
         return 2;
     } else {
