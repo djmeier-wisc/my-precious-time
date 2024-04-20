@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </head>
-      <body className='h-screen'>
+      <body>
       <Script
           defer
           src="https://static.cloudflareinsights.com/beacon.min.js"

@@ -37,7 +37,7 @@ export const getMidnightSixDaysAgo = () => {
     date.setDate(date.getDate() - 7);
     return date;
 }
-export default function DelayLineChart() {
+export default function DelayLineChart({feedId}) {
     const {chartContext, setChartContext} = useChartContext();
     const DEFAULT_UNITS_SPAN = 7;
     const DEFAULT_START_DATE = getMidnightSixDaysAgo();
@@ -50,7 +50,7 @@ export default function DelayLineChart() {
     const [units, setUnits] = useState(DEFAULT_UNITS_SPAN);
     const [unitsErr, setUnitsErr] = useState(null);
     const [allBusStates, setAllBusStates] = useState([]);
-    const [selectedBusStates, setSelectedBusStates] = useState(['A', 'B', 'C', 'D', 'F', 'R', 'G', 'H', '80']);
+    const [selectedBusStates, setSelectedBusStates] = useState([]);
     const options = {
         maintainAspectRatio: false,
         scales: {
@@ -78,7 +78,10 @@ export default function DelayLineChart() {
     useEffect(() => {
         fetchBusStateList();
     }, [chartContext]);
-
+    useEffect(()=> {
+        if(allBusStates !== undefined )
+            setSelectedBusStates(allBusStates.slice(0,7))
+    },[allBusStates])
     let setUnitsConditionally = (change) => {
         let currUnits = change.target.value;
         if (parseInt(currUnits) > 0) {
@@ -89,7 +92,7 @@ export default function DelayLineChart() {
         }
     }
     let fetchGraphData = () => {
-        let url = chartContext.url;
+        let url = chartContext.url + feedId;
         if (startDate || endDate || units || selectedBusStates) {
             url += "?"
         }
@@ -103,20 +106,23 @@ export default function DelayLineChart() {
         setFetchedData(false);
         fetch(url).then(res => {
             if(res.ok) return res.json();
-            setIsError(true);
-        }).catch(err => {
-            console.log(err)
-            setFetchedData(false);
-            setIsError(true);
+            else {
+                throw new Error();
+            }
         }).then(data => {
             setDataSets(data);
             setFetchedData(true);
             setIsError(false);
+            console.log("Completed request succeessfully")
+        }).catch(err => {
+            console.log(err)
+            setFetchedData(false);
+            setIsError(true);
         });
     }
 
     async function fetchBusStateList() {
-        fetch("https://api.my-precious-time.com/v1/getAllRouteNames")
+        fetch("https://api.my-precious-time.com/v1/getAllRouteNames?agencyId="+feedId)
             .then(res => {
                 if(res.ok) return res.json();
                 return [];

@@ -1,4 +1,4 @@
-export default function GraphText() {
+export default function GraphText({feedId}) {
     return (
         <>
             <h1 className="text-center py-5 text-3xl text-slate-100">
