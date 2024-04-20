@@ -43,7 +43,7 @@ function checkBoxSelector(status) {
 
 function getUrlIfActOrUndefined(agency) {
     if(agency?.status === "ACT" || agency?.status === "UNAVAILABLE") {
-        return "/" + agency?.id + "/graph"
+        return "/" + agency?.id + "/graph.html"
     } else {
         return undefined;
     }

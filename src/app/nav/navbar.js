@@ -74,6 +74,7 @@ export default function MainNav() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
+                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="supported agencies" url="/agencies.html" />
                             <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name={"about me"} url={"https://github.com/djmeier-wisc"} />
                             <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name={"api reference"} url={"https://api.my-precious-time.com/webjars/swagger-ui/index.html"} />
                         </Menu>
@@ -97,7 +98,7 @@ export default function MainNav() {
                         {siteName}
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="supported agencies" url="/agencies" />
+                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="supported agencies" url="/agencies.html" />
                         <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="about me" url="https://github.com/djmeier-wisc" />
                         <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="api reference" url="https://api.my-precious-time.com/webjars/swagger-ui/index.html" />
                     </Box>
