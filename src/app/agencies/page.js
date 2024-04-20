@@ -1,4 +1,4 @@
-import { CheckCircle, CheckCircleOutline, Pending } from "@mui/icons-material";
+import { Cancel, CheckCircle, CheckCircleOutline } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
 
 export default async function AgenciesPage() {
@@ -13,8 +13,10 @@ export default async function AgenciesPage() {
                     </h1>
                     <div className={"col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 place-items-center"}>
                         {agencies.filter(a => a?.state === state).sort(sortByStatus).map(agency => {
+                            const isActive = agency.status === 'ACT';
+                            const hoverClasses = isActive ? "hover:shadow-lg hover:bg-slate-400":"";
                             return (
-                            <a className="flex grow justify-items-center items-center block text-center align-middle p-3 text-slate-1000 bg-slate-350 hover:shadow-lg hover:bg-slate-400 rounded transition ease-in-out" 
+                            <a className={"flex grow justify-items-center items-center block text-center align-middle p-3 text-slate-1000 bg-slate-350 rounded transition ease-in-out" + hoverClasses}
                                 key={agency?.id} 
                                 href={getUrlIfActOrUndefined(agency)}>
                                     {agency?.name} {checkBoxSelector(agency?.status)}
@@ -35,7 +37,7 @@ function checkBoxSelector(status) {
     } else if (status === "UNAVAILABLE") {
         return (<Tooltip title="Issue Feed: Due to errors in our code, there may be intermittent gaps in data."><CheckCircleOutline  color="warning" /></Tooltip>)
     } else {
-        return (<Tooltip title="Pending Feed: We aren't polling this feed due to authentication issues or errors in our code."><Pending color="error" /></Tooltip>)
+        return (<Tooltip title="Pending Feed: We aren't polling this feed due to authentication issues or errors in our code."><Cancel color="error" /></Tooltip>)
     }
 }
 
@@ -48,6 +50,7 @@ function getUrlIfActOrUndefined(agency) {
 }
 
 function sortByStatus(agency1, agency2) {
+    console.log(agency1.name,mapStatusToInt(agency1?.status))
     return mapStatusToInt(agency1?.status) - mapStatusToInt(agency2?.status);
 }
 

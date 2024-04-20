@@ -1,38 +1,13 @@
-'use client'
-import DelayLineChart from "./charting/chart";
-
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { useState } from "react";
-import GraphTypeSelector from "./charting/graphTypeSelector";
-import GraphText from "./main-text/graph-text";
-import { CONST_AVG, CONST_MAX, CONST_PERC, ChartContextProvider} from "./charting/chartContext";
-
-
 export default function Home() {
   
   return (
-    <ChartContextProvider>
-    <main className="h-screen">
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <div className="grid grid-cols-2 lg:grid-cols-6 h-full">
-          <div className="col-span-2 px-3 bg-slate-800">
-            <GraphText />
-            <div className="grid grid-rows-3 gap-4">
-              <GraphTypeSelector curr={CONST_AVG} />
-              <GraphTypeSelector curr={CONST_MAX} />
-              <GraphTypeSelector curr={CONST_PERC} />
-            </div>
-          </div>
-          <div className="col-span-4 bg-slate-300">
-            <div className="px-3 pt-5">
-              <DelayLineChart />
-            </div>
-
-          </div>
-        </div>
-      </LocalizationProvider>
-    </main>
-    </ChartContextProvider>
+    <div className="bg-gradient-to-t from-slate-800 to-slate-300 h-screen flex justify-center items-center">
+      <main className="text-slate-800 text-center">
+        <h1 className="text-4xl font-bold mb-4">Welcome to My Precious Time</h1>
+        <p className="text-lg mb-8">A transit delay tracker for multiple agencies 🚌 !</p>
+        <a href="/agencies" className="mx-1 bg-slate-300 text-gray-800 py-2 px-6 rounded-full text-lg hover:bg-gray-200 transition duration-300">See Supported Agencies</a>
+        <a href="/394/graph" className="mx-1 bg-slate-300 text-gray-800 py-2 px-6 rounded-full text-lg hover:bg-gray-200 transition duration-300">Madison Reliability Data</a>
+      </main>
+    </div>
   )
 }

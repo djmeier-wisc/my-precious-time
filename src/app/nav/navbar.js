@@ -7,8 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
 import KofiButton from 'kofi-button';
 import CustomMenuItem from './menuItem';
 
@@ -25,7 +23,7 @@ export default function MainNav() {
     };
     const siteName = "MPT";
     return (
-        <AppBar position="static" className='border-solid border-b-4 border-slate-800 bg-slate-300 text-slate-800 sticky top-0' sx={{bgcolor: "rgb(203 213 225)", color: "rgb(30 41 59)"}}>
+        <AppBar position="static" className='z-10 border-solid border-b-4 border-slate-800 bg-slate-300 text-slate-800 sticky top-0' sx={{ bgcolor: "rgb(203 213 225)", color: "rgb(30 41 59)" }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
@@ -99,7 +97,7 @@ export default function MainNav() {
                         {siteName}
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="supported agencies" url="/agencies"/>
+                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="supported agencies" url="/agencies" />
                         <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="about me" url="https://github.com/djmeier-wisc" />
                         <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="api reference" url="https://api.my-precious-time.com/webjars/swagger-ui/index.html" />
                     </Box>
