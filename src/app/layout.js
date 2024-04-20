@@ -18,11 +18,6 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </head>
       <body>
-      <Script
-          defer
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon=' {"token": "42e216b9090ru59384ygu891dce9eecde", "spa": false} '
-        />
         <MainNav />
         {children}
       </body>
