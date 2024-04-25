@@ -41,7 +41,7 @@ export const getMidnightSixDaysAgo = () => {
     return date;
 }
 export default function DelayLineChart({ feedId }) {
-    const { chartContext, setChartContext } = useChartContext();
+    const { chartContext } = useChartContext();
     const DEFAULT_UNITS_SPAN = 7;
     const DEFAULT_START_DATE = getMidnightSixDaysAgo();
     const DEFAULT_END_DATE = getMidnightTomorrow();
@@ -138,7 +138,6 @@ export default function DelayLineChart({ feedId }) {
     }
 
     return (
-
         <div className="h-full w-full">
             <div className="grid sm:grid-cols-6 gap-3">
                 <div className="flex flex-row col-span-2 justify-items-center">

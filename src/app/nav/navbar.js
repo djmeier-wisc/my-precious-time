@@ -9,6 +9,7 @@ import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import KofiButton from 'kofi-button';
 import CustomMenuItem from './menuItem';
+import Link from 'next/link';
 
 
 export default function MainNav() {
@@ -29,8 +30,6 @@ export default function MainNav() {
                     <Typography
                         variant="h6"
                         noWrap
-                        component="a"
-                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -41,7 +40,9 @@ export default function MainNav() {
                             textDecoration: 'none',
                         }}
                     >
-                        {siteName}
+                        <Link href="/">
+                            {siteName}
+                        </Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -74,7 +75,7 @@ export default function MainNav() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="supported agencies" url="/agencies.html" />
+                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="available agencies" url="/agencies" />
                             <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name={"about me"} url={"https://github.com/djmeier-wisc"} />
                             <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name={"api reference"} url={"https://api.my-precious-time.com/webjars/swagger-ui/index.html"} />
                         </Menu>
@@ -82,8 +83,6 @@ export default function MainNav() {
                     <Typography
                         variant="h5"
                         noWrap
-                        component="a"
-                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -95,10 +94,12 @@ export default function MainNav() {
                             textDecoration: 'none',
                         }}
                     >
-                        {siteName}
+                        <Link href="/">
+                            {siteName}
+                        </Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="supported agencies" url="/agencies.html" />
+                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="available agencies" url="/agencies" />
                         <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="about me" url="https://github.com/djmeier-wisc" />
                         <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="api reference" url="https://api.my-precious-time.com/webjars/swagger-ui/index.html" />
                     </Box>
