@@ -2,7 +2,6 @@ import Link from "next/link";
 import { formatLink } from "./[state]/[agencyName]/[id]/graph/page";
 
 export default function Home() {
-  
   return (
     <div className="bg-gradient-to-t from-slate-800 to-slate-300 h-screen flex flex-row justify-center items-center">
       <main className="text-slate-800 text-center grid grid-cols-1 gap-5 justify-center items-center">
