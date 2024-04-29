@@ -80,7 +80,7 @@ export default function DelayLineChart({ feedId }) {
     }, [chartContext, startDate, endDate, units, selectedBusStates]);
     useEffect(() => {
         fetchBusStateList();
-    }, [chartContext]);
+    }, []);
     useEffect(() => {
         if (allBusStates !== undefined)
             setSelectedBusStates(allBusStates.slice(0, 7))

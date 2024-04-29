@@ -18,9 +18,9 @@ export default function GraphPage({ params }) {
     );
 }
 export function formatLink(url) {
-    return url.trim().replaceAll(' ', "%20").replaceAll("(", "%28").replaceAll(")","%29")
+    return url.trim().replaceAll(' ', "_").replaceAll("(", "-2-").replaceAll(")","-3-")
 }
 
 export function deformatLink(url) {
-    return url.trim().replaceAll("%20"," ").replaceAll("%28","(").replaceAll("%29",")")
+    return url.trim().replaceAll("_"," ").replaceAll("-2-","(").replaceAll("-3-",")")
 }
