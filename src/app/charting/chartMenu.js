@@ -12,7 +12,7 @@ export default function ChartMenu({ state, feedName, feedId }) {
                 <ChartWrapper>
                     <div className="col-span-2 px-3 bg-slate-800">
                         <GraphText state={state} feedName={feedName} />
-                        <div className="grid grid-rows-3 gap-4">
+                        <div className="grid grid-rows-3 gap-4 py-5">
                             <GraphTypeSelector curr={CONST_AVG} />
                             <GraphTypeSelector curr={CONST_MAX} />
                             <GraphTypeSelector curr={CONST_PERC} />

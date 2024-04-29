@@ -1,26 +1,19 @@
 "use client";
-import { Checkbox, FormControlLabel } from "@mui/material";
+import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { useState } from "react";
 
 export default function ColorCheckbox({ setColors, colors }) {
-  const [isChecked, setIsChecked] = useState(true);
   const handleCheck = () => {
-    setIsChecked(!isChecked);
-    setColors(isChecked);
+    setColors((currValue)=>!currValue);
   };
   return (
-    <div id="checkbox-div">
-      <label htmlFor="checkbox" id="checkbox-label">
-        Metro Colors
-      </label>
-      <br />
-      <input
+    <FormGroup className="self-center justify-self-center">
+      <FormControlLabel control={<Checkbox
         name="checkbox"
         id="checkbox"
-        type="checkbox"
-        checked={isChecked}
+        checked={colors}
         onChange={handleCheck}
-      />
-    </div>
+      />} label="Agency Color" labelPlacement="bottom"/>
+    </FormGroup>
   );
 }
