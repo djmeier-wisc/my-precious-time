@@ -108,7 +108,6 @@ export default function DelayLineChart({ feedId }) {
         if (useColor != null) params.push("useColor=" + useColor);
         if (selectedBusStates) selectedBusStates.forEach(busState => params.push('routes=' + busState))
         url += params.join("&");
-        console.log("getting URL", url);
         setFetchedData(false);
         fetch(url).then(res => {
             if (res.ok) return res.json();

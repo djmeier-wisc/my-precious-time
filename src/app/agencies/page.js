@@ -1,8 +1,8 @@
 
 import AgencyCheckBox from "agency/agencyCheckBox";
-import { formatLink } from "app/[state]/[agencyName]/[id]/graph/page";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { formatLink } from "utils/linkFormat";
 export default async function AgenciesPage() {
     const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all", { next: { revalidate: 5 } }).then(r => r.json());
     const states = Array.from(new Set(agencies.map(i => i.state))).sort();
