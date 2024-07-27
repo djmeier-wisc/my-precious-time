@@ -18,11 +18,16 @@ export default function OpenStreetMap() {
             console.log(err)
         })
     }, [])
-    return <MapContainer center={[43.0718,-89.3982]} zoom={10} scrollWheelZoom={true} className="h-screen">
+    const style = (feature) => {
+        return {
+            color: feature.properties.stroke || '#000000'
+        };
+    };
+    return <MapContainer center={[43.0718,-89.3982]} zoom={10} scrollWheelZoom={true} className="min-h-[calc(100vh-70px)]">
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <GeoJSON data={routeData} />
+            {routeData && <GeoJSON pathOptions={{stroke:true}} style={style} data={routeData} />}
         </MapContainer>
 }
