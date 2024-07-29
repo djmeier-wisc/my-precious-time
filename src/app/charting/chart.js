@@ -14,7 +14,7 @@ import {
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Line } from 'react-chartjs-2';
 import { CircularProgress, TextField, Tooltip as TT } from "@mui/material";
-import BusSelector from "./busSelector";
+import MultiListSelect from "./busSelector";
 import ColorCheckbox from "./colorCheckbox";
 ChartJS.register(
     CategoryScale,
@@ -177,7 +177,7 @@ export default function DelayLineChart({ feedId }) {
                 <div className="flex flex-row col-span-2 content-center">
                     <div className="grid grid-cols-8">
                         <div className="col-span-7">
-                            <BusSelector busOptions={allBusStates} setCurrBusList={setSelectedBusStates} currBusList={selectedBusStates} />
+                            <MultiListSelect busOptions={allBusStates} setCurrBusList={setSelectedBusStates} currBusList={selectedBusStates} />
                         </div>
                         <TT title="Select what routes you want to put on the graph" className="self-center justify-self-center">
                             <Help />

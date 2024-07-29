@@ -4,6 +4,8 @@ import dynamic from "next/dynamic";
 import { useMemo } from "react";
 import { formatLink } from "utils/linkFormat";
 import "leaflet/dist/leaflet.css";
+import MultiListSelect from "app/charting/busSelector";
+import MapWithControls from "app/map/mapWithControls";
 
 export async function generateStaticParams() {
     const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all").then(r => r.json());
@@ -18,9 +20,7 @@ export async function generateStaticParams() {
     return paths;
 }
 export default function LineDelayMap({ params }) {
-    const Map = useMemo(() => dynamic(() => import('app/map/openStreetMap'), {
-        loading: () => <p>Loading map</p>,
-        ssr: false
-    }), []);
-    return (<Map />);
+    return (
+        <MapWithControls feedId={params.id} feedName={params.agencyName} state={params.state} />
+    );
 }

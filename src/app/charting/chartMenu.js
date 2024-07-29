@@ -7,7 +7,7 @@ import GraphText from "app/main-text/graph-text";
 import DelayLineChart from "./chart";
 export default function ChartMenu({ state, feedName, feedId }) {
     return (
-        <main className="h-screen">
+        <main className="h-[calc(100vh-65px)]">
             <div className="grid grid-cols-2 lg:grid-cols-6 h-full">
                 <ChartWrapper>
                     <div className="col-span-2 px-3 bg-slate-800">

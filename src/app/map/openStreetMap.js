@@ -1,33 +1,32 @@
 'use client'
-import { useEffect, useState } from "react";
-import { MapContainer, Marker, Popup, TileLayer, GeoJSON } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 
-export default function OpenStreetMap() {
-    const [routeData, setRouteData] = useState();
-    useEffect(()=>{
-        fetch("http://localhost:8080/v1/map/394/delayLines?routeName=A")
-        .then(res=>{
-            if (res.ok) return res.json()
-            else throw new Error("Bad response type for delayLines");
-        })
-        .then(res=>{
-            setRouteData(res);
-        })
-        .catch(err=>{
-            setRouteData(null);
-            console.log(err)
-        })
-    }, [])
+export default function OpenStreetMap({geoJsonData}) {
+    // let maxAvgDelay = Math.max(geoJsonData?.features?.map(s=>s?.properties?.averageDelay));
+    // let minAvgDelay = Math.min(geoJsonData?.features?.map(s=>s?.properties?.averageDelay));
+    // const interpolate => (i) => {
+    //     i * (maxAvgDelay - minAvgDelay) / 7
+    // }
+    const getColorBetweenRedAndGreen = (d) => {
+            return d > 20 ? '#FF0000' :
+                   d > 10  ? '#DB2400' :
+                   d > 5  ? '#B64900' :
+                   d > 4  ? '#926D00' :
+                   d > 3   ? '#6D9200' :
+                   d > 2   ? '#49B600' :
+                   d > 1   ? '#24DB00' :
+                              '#00FF00';
+    }
     const style = (feature) => {
         return {
-            color: feature.properties.stroke || '#000000'
+            color: getColorBetweenRedAndGreen(feature.properties.averageDelay)
         };
     };
-    return <MapContainer center={[43.0718,-89.3982]} zoom={10} scrollWheelZoom={true} className="min-h-[calc(100vh-70px)]">
+    return <MapContainer center={[43.0718,-89.3982]} zoom={10} scrollWheelZoom={true} className="h-full">
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {routeData && <GeoJSON pathOptions={{stroke:true}} style={style} data={routeData} />}
+            {geoJsonData && <GeoJSON pathOptions={{stroke:true}} style={style} data={geoJsonData} />}
         </MapContainer>
 }
