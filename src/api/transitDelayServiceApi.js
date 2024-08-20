@@ -9,12 +9,18 @@ export async function getAllRoutes(feedId) {
     return await res.json();
 }
 
-export async function getGeoJsonFor(feedId, route, numDays, hourPolled) {
+export async function getGeoJsonFor(feedId, route, numDays, hourStarted, hourEnded, daysSelected) {
     if(!route || !feedId || route.length == 0) {
         return null;
     }
     const u = new URLSearchParams({routeName: route});
-    if (hourPolled !== undefined) u.append("hourPolled", hourPolled);
+    if (hourStarted !== undefined) u.append("hourStarted", hourStarted);
+    if (hourEnded !== undefined) u.append("hourStarted", hourEnded);
+    if (daysSelected !== undefined) {
+        daysSelected.forEach(daySelected => {
+            u.append("daysSelected",daySelected);
+        });
+    }
     if (numDays !== undefined) u.append("numDaysAgo", numDays)
     const res = await fetch(BASE_URL + "/v1/map/"+feedId+"/delayLines?"+u.toString())
     if (!res.ok) {
