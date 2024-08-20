@@ -15,13 +15,13 @@ export async function getGeoJsonFor(feedId, route, numDays, hourStarted, hourEnd
     }
     const u = new URLSearchParams({routeName: route});
     if (hourStarted !== undefined) u.append("hourStarted", hourStarted);
-    if (hourEnded !== undefined) u.append("hourStarted", hourEnded);
+    if (hourEnded !== undefined) u.append("hourEnded", hourEnded);
     if (daysSelected !== undefined) {
         daysSelected.forEach(daySelected => {
             u.append("daysSelected",daySelected);
         });
     }
-    if (numDays !== undefined) u.append("numDaysAgo", numDays)
+    if (numDays !== undefined) u.append("searchPeriod", numDays)
     const res = await fetch(BASE_URL + "/v1/map/"+feedId+"/delayLines?"+u.toString())
     if (!res.ok) {
         console.log("Failed to get geoJson for feedId: " + feedId + "and route: " + route);

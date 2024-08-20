@@ -85,13 +85,13 @@ export default function MapWithControls({ feedId, feedName, state }) {
 
     return (
         <div className="flex lg:flex-row flex-col h-[calc(100vh-65px)]">
-            <div className="p-5 flex flex-col bg-slate-300 border border-solid border-b-4 border-slate-300 max-w-80">
+            <div className="p-5 flex flex-col bg-slate-300 border border-solid border-b-4 border-slate-300 max-w-80 gap-5">
                 <h1 className="text-center py-5 text-3xl text-slate-800">
                     {state} - {deformatLink(feedName)}
                 </h1>
                 <p>Here, you can try selecting</p>
                 <SingleListSelect options={allRoutes} setCurrSelection={setSelectedRoute} currSelection={selectedRoute} labelName={"Select Route"} />
-                <SingleListSelect options={daySelections} setCurrSelection={setNumDays} currSelection={numDays} labelName={"Number of days in past to search"} />
+                <SingleListSelect options={daySelections} setCurrSelection={setNumDays} currSelection={numDays} labelName={"Select Search Period (days in past)"} />
                 <Slider
                     aria-label="Select Time Between Midnight and Midnight"
                     defaultValue={[0, 24]}
