@@ -1,10 +1,6 @@
 
-import OpenStreetMap from "app/map/openStreetMap";
-import dynamic from "next/dynamic";
-import { useMemo } from "react";
 import { formatLink } from "utils/linkFormat";
 import "leaflet/dist/leaflet.css";
-import MultiListSelect from "app/charting/busSelector";
 import MapWithControls from "app/map/mapWithControls";
 
 export async function generateStaticParams() {

@@ -1,12 +1,13 @@
 'use client'
 import MultiListSelect from "app/charting/busSelector";
-import OpenStreetMap from "./openStreetMap";
 import { useEffect, useState } from "react";
 import { getAllRoutes, getGeoJsonFor } from "api/transitDelayServiceApi";
 import SingleListSelect from "app/charting/singleListSelector";
 import { deformatLink } from "utils/linkFormat";
-import { Box, Button, CircularProgress, Slider, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Slider, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import dynamic from "next/dynamic";
 
+const OpenStreetMap = dynamic(() => import('./openStreetMap'), { ssr: false });
 const hoursOfDay = [
     { label: "12 AM", value: 0 },
     { label: "1 AM", value: 1 },
@@ -54,7 +55,7 @@ export default function MapWithControls({ feedId, feedName, state }) {
     const [loading, setLoading] = useState(false);
     const [geoJsonErr, setGeoJsonErr] = useState(false);
     const hours = Array.from(Array(24), (_, i) => i + 1)
-    const daySelections = [1, 7, 30];
+    const daysInPastToSearch = [1, 7, 30, 180];
     useEffect(() => {
         if (selectedRoute === "" || selectedRoute === undefined) {
             return;
@@ -71,7 +72,7 @@ export default function MapWithControls({ feedId, feedName, state }) {
             setGeoJsonErr(false)
         })();
         setLoading(false);
-    }, [feedId, selectedRoute, numDays, selectedHours])
+    }, [feedId, selectedRoute, numDays, selectedHours, daysSelected])
     useEffect(() => {
         (async () => {
             var response = await getAllRoutes(feedId);
@@ -85,13 +86,13 @@ export default function MapWithControls({ feedId, feedName, state }) {
 
     return (
         <div className="flex lg:flex-row flex-col h-[calc(100vh-65px)]">
-            <div className="p-5 flex flex-col bg-slate-300 border border-solid border-b-4 border-slate-300 max-w-80 gap-5">
+            <div className="p-5 flex flex-col bg-slate-300 border border-solid border-b-4 border-slate-300 max-w-80 gap-5 justify-items-center">
                 <h1 className="text-center py-5 text-3xl text-slate-800">
                     {state} - {deformatLink(feedName)}
                 </h1>
                 <p>Here, you can try selecting</p>
                 <SingleListSelect options={allRoutes} setCurrSelection={setSelectedRoute} currSelection={selectedRoute} labelName={"Select Route"} />
-                <SingleListSelect options={daySelections} setCurrSelection={setNumDays} currSelection={numDays} labelName={"Select Search Period (days in past)"} />
+                <SingleListSelect options={daysInPastToSearch} setCurrSelection={setNumDays} currSelection={numDays} labelName={"Select Search Period (days in past)"} />
                 <Slider
                     aria-label="Select Time Between Midnight and Midnight"
                     defaultValue={[0, 24]}
@@ -116,9 +117,15 @@ export default function MapWithControls({ feedId, feedName, state }) {
                         12AM
                     </Typography>
                 </Box>
-                <div>
-                    <Button />
-                </div>
+                <ToggleButtonGroup value={daysSelected} aria-label="Select Week" onChange={(_, newData)=>setDaysSelected(newData)}>
+                    <ToggleButton aria-label="Sunday" value={7}>S</ToggleButton>
+                    <ToggleButton aria-label="Monday" value={1}>M</ToggleButton>
+                    <ToggleButton aria-label="Tuesday" value={2}>T</ToggleButton>
+                    <ToggleButton aria-label="Wednesday" value={3}>W</ToggleButton>
+                    <ToggleButton aria-label="Thursday" value={4}>T</ToggleButton>
+                    <ToggleButton aria-label="Friday" value={5}>F</ToggleButton>
+                    <ToggleButton aria-label="Sunday" value={6}>S</ToggleButton>
+                </ToggleButtonGroup>
             </div>
             <div className="flex-grow">
                 {loading && <CircularProgress />}

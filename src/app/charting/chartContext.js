@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 
 export const CONST_AVG = {
-    url: "https://api.my-precious-time.com/v1/graph/average/",
+    url: "http://localhost:8080/v1/graph/average/",
     desc: "Average Delay in Minutes"
 };
 export const CONST_MAX = {
