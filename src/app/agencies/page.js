@@ -48,11 +48,11 @@ export default async function AgenciesPage() {
     );
 }
 
-function getGraphUrl(agency) {
+export function getGraphUrl(agency) {
     return "/" + agency?.state + "/" + agency?.name + "/" + agency?.id + "/graph"
 }
 
-function getMapUrl(agency) {
+export function getMapUrl(agency) {
     return "/" + agency?.state + "/" + agency?.name + "/" + agency?.id + "/map"
 }
 

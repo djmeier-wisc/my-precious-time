@@ -6,6 +6,8 @@ import SingleListSelect from "app/charting/singleListSelector";
 import { deformatLink } from "utils/linkFormat";
 import { Box, Button, CircularProgress, Slider, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
+import Link from "next/link";
+import { getGraphUrl, getMapUrl } from "app/agencies/page";
 
 const OpenStreetMap = dynamic(() => import('./openStreetMap'), { ssr: false });
 const hoursOfDay = [
@@ -90,9 +92,22 @@ export default function MapWithControls({ feedId, feedName, state }) {
                 <h1 className="text-center py-5 text-3xl text-slate-800">
                     {state} - {deformatLink(feedName)}
                 </h1>
-                <p>Here, you can try selecting</p>
+                <Link href={getGraphUrl({state:state,id:feedId,name:feedName})}>
+                    <Typography>See Graph</Typography>
+                </Link>
                 <SingleListSelect options={allRoutes} setCurrSelection={setSelectedRoute} currSelection={selectedRoute} labelName={"Select Route"} />
                 <SingleListSelect options={daysInPastToSearch} setCurrSelection={setNumDays} currSelection={numDays} labelName={"Select Search Period (days in past)"} />
+                <div className="flex center items-center justify-center">
+                    <ToggleButtonGroup className="flex gap-4" value={daysSelected} aria-label="Select Week" onChange={(_, newData)=>setDaysSelected(newData)}>
+                        <ToggleButton aria-label="Sunday" value={7}>S</ToggleButton>
+                        <ToggleButton aria-label="Monday" value={1}>M</ToggleButton>
+                        <ToggleButton aria-label="Tuesday" value={2}>T</ToggleButton>
+                        <ToggleButton aria-label="Wednesday" value={3}>W</ToggleButton>
+                        <ToggleButton aria-label="Thursday" value={4}>T</ToggleButton>
+                        <ToggleButton aria-label="Friday" value={5}>F</ToggleButton>
+                        <ToggleButton aria-label="Sunday" value={6}>S</ToggleButton>
+                    </ToggleButtonGroup>
+                </div>
                 <Slider
                     aria-label="Select Time Between Midnight and Midnight"
                     defaultValue={[0, 24]}
@@ -117,15 +132,6 @@ export default function MapWithControls({ feedId, feedName, state }) {
                         12AM
                     </Typography>
                 </Box>
-                <ToggleButtonGroup value={daysSelected} aria-label="Select Week" onChange={(_, newData)=>setDaysSelected(newData)}>
-                    <ToggleButton aria-label="Sunday" value={7}>S</ToggleButton>
-                    <ToggleButton aria-label="Monday" value={1}>M</ToggleButton>
-                    <ToggleButton aria-label="Tuesday" value={2}>T</ToggleButton>
-                    <ToggleButton aria-label="Wednesday" value={3}>W</ToggleButton>
-                    <ToggleButton aria-label="Thursday" value={4}>T</ToggleButton>
-                    <ToggleButton aria-label="Friday" value={5}>F</ToggleButton>
-                    <ToggleButton aria-label="Sunday" value={6}>S</ToggleButton>
-                </ToggleButtonGroup>
             </div>
             <div className="flex-grow">
                 {loading && <CircularProgress />}

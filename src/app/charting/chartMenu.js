@@ -5,6 +5,9 @@ import ChartWrapper from "app/charting/chartContextWrapper";
 import GraphTypeSelector from "app/charting/graphTypeSelector";
 import GraphText from "app/main-text/graph-text";
 import DelayLineChart from "./chart";
+import { getGraphUrl } from "app/agencies/page";
+import Link from "next/link";
+import { formatLink } from "utils/linkFormat";
 export default function ChartMenu({ state, feedName, feedId }) {
     return (
         <main className="h-[calc(100vh-65px)]">

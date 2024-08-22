@@ -1,9 +1,13 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from "react";
-import { TileLayer, GeoJSON, MapContainer } from "react-leaflet";
+import { TileLayer, GeoJSON, MapContainer, Popup } from "react-leaflet";
 
 export default function OpenStreetMap({ geoJsonData }) {
     const mapRef = useRef();
+    const [popupData, setPopupData] = useState(null);
+    useEffect(()=>{
+        setPopupData(null)
+    }, [geoJsonData])
     const getColorBetweenRedAndGreen = (d) => {
         return d > 20 ? '#FF0000' :
             d > 10 ? '#DB2400' :
@@ -43,7 +47,17 @@ export default function OpenStreetMap({ geoJsonData }) {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {geoJsonData && <GeoJSON pathOptions={{ stroke: true }} style={style} data={geoJsonData} />}
+            {geoJsonData && <GeoJSON onEachFeature={(feature,layer)=>{
+                layer.on('click',(e)=>{
+                    setPopupData({
+                        latLng: e.latlng,
+                        properties: feature.properties
+                    });
+                })
+            }} pathOptions={{ stroke: true }} style={style} data={geoJsonData} />}
+           {popupData && <Popup position={popupData?.latLng}>
+                Average Minutes Delayed: {Number(popupData?.properties?.averageDelay).toFixed(2)}
+            </Popup>}
         </MapContainer>
     );
 }
