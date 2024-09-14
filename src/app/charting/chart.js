@@ -29,6 +29,7 @@ ChartJS.register(
 import dayjs from "dayjs";
 import { useChartContext } from "./chartContext";
 import { Help } from "@mui/icons-material";
+import { getAllRoutes } from "api/transitDelayServiceApi";
 
 export const getMidnightTomorrow = () => {
     let date = new Date();
@@ -81,12 +82,12 @@ export default function DelayLineChart({ feedId }) {
         return () => clearTimeout(delayInput);
     }, [chartContext, startDate, endDate, units, selectedBusStates, useColor]);
     useEffect(() => {
-        fetchBusStateList();
+        (async () => {
+            var response = await getAllRoutes(feedId);
+            setAllBusStates(response);
+            setSelectedBusStates(response ? response.slice(0, 7) : []);
+        })();
     }, []);
-    useEffect(() => {
-        if (allBusStates !== undefined)
-            setSelectedBusStates(allBusStates.slice(0, 7))
-    }, [allBusStates])
     let setUnitsConditionally = (change) => {
         let currUnits = change.target.value;
         if (parseInt(currUnits) > 0) {
@@ -124,19 +125,6 @@ export default function DelayLineChart({ feedId }) {
             setFetchedData(false);
             setIsError(true);
         });
-    }
-
-    async function fetchBusStateList() {
-        fetch("https://api.my-precious-time.com/v1/getAllRouteNames?agencyId=" + feedId)
-            .then(res => {
-                if (res.ok) return res.json();
-                return [];
-            })
-            .then(res => setAllBusStates(res))
-            .catch(err => {
-                console.log("Error retrieving all route names", err);
-                setAllBusStates(null);
-            });
     }
 
     return (

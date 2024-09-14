@@ -23,13 +23,13 @@ function getStyles(currSelection, allSelectionList, theme) {
     };
 };
 
-export default function SingleListSelect({ options, setCurrSelection, currSelection, labelName}) {
+export default function SingleListSelect({ options, setCurrSelection, currSelection, labelName, className = ""}) {
     const theme = useTheme();
     let handleChange = (event) => {
         setCurrSelection(event.target.value);
     }
     return (
-        <FormControl className="w-full">
+        <FormControl className={"w-full " + className}>
             <InputLabel style={{color: "rgb(241 245 249 / var(--tw-text-opacity))"}}>{labelName}</InputLabel>
             <Select
                 value={currSelection}

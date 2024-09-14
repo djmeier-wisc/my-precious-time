@@ -1,4 +1,5 @@
 'use client';
+import zIndex from "@mui/material/styles/zIndex";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { TileLayer, GeoJSON, MapContainer, Popup } from "react-leaflet";
 
@@ -9,14 +10,14 @@ export default function OpenStreetMap({ geoJsonData }) {
         setPopupData(null)
     }, [geoJsonData])
     const getColorBetweenRedAndGreen = (d) => {
-        return d > 20 ? '#FF0000' :
-            d > 10 ? '#DB2400' :
-                d > 5 ? '#B64900' :
-                    d > 4 ? '#926D00' :
-                        d > 3 ? '#6D9200' :
-                            d > 2 ? '#49B600' :
-                                d > 1 ? '#24DB00' :
-                                    '#00FF00';
+        return d > 20 ? '#FF0000' :  // Bright red for very late
+               d > 15 ? '#DB2400' :  // Darker red
+               d > 10 ? '#B64900' :  // Red-orange
+               d > 5 ? '#926D00' :   // Orange
+               d > 1 ? '#6D9200' :   // Yellow-green
+               d > 0 ? '#49B600' :   // Green for on-time
+               d > -5 ? '#0077CC' :  // Clearer blue for early (calm blue)
+               '#004466';            // Bright green for on-time (fallback)
     }
 
     useEffect(() => {
@@ -42,7 +43,7 @@ export default function OpenStreetMap({ geoJsonData }) {
     };
 
     return (
-        <MapContainer ref={mapRef}scrollWheelZoom={true} className="h-full">
+        <MapContainer ref={mapRef} scrollWheelZoom={true} className="h-full">
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
