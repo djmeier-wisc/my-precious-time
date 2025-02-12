@@ -1,5 +1,7 @@
-import ChartMenu from "app/charting/chartMenu";
-import { deformatLink, formatLink } from "utils/linkFormat";
+
+import { formatLink } from "utils/linkFormat";
+import "leaflet/dist/leaflet.css";
+import MapWithControls from "app/map/mapWithControls";
 
 export async function generateStaticParams() {
     const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all").then(r => r.json());
@@ -13,8 +15,8 @@ export async function generateStaticParams() {
     ));
     return paths;
 }
-export default function GraphPage({ params }) {
+export default function LineDelayMap({ params }) {
     return (
-        <ChartMenu state={deformatLink(params.state)} feedName={deformatLink(params.agencyName)} feedId={deformatLink(params.id)} />
+        <MapWithControls feedId={params.id} feedName={params.agencyName} state={params.state} />
     );
 }

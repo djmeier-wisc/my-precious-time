@@ -9,11 +9,12 @@
         "plugin:react/recommended"
     ],
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
     "plugins": [
         "react"
     ],
     "rules": {
-    }
+    },
 }

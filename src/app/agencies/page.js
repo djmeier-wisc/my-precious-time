@@ -1,10 +1,10 @@
-
-import AgencyCheckBox from "agency/agencyCheckBox";
-import { formatLink } from "app/[state]/[agencyName]/[id]/graph/page";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { formatLink } from "utils/linkFormat";
 export default async function AgenciesPage() {
-    const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all", { next: { revalidate: 5 } }).then(r => r.json());
+    const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all", { next: { revalidate: 5 } })
+        .then(r => r.json())
+        .then(r => r.filter(a=> a?.status !== "UNAUTHORIZED"))
     const states = Array.from(new Set(agencies.map(i => i.state))).sort();
     const AgencyCheckBox = dynamic(() => import('../../agency/agencyCheckBox'), { ssr: false });
     return (
@@ -15,19 +15,31 @@ export default async function AgenciesPage() {
                         {state}&nbsp;
                     </h1>
                     <div className={"col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 place-items-center"}>
-                        {agencies.filter(a => a?.state === state).sort(sortByStatus).map(agency => {
-                            const isActive = agency.status === 'ACT';
-                            const hoverClasses = isActive ? "hover:shadow-lg hover:bg-slate-400" : "";
+                        {agencies.filter(a => a?.state === state).sort(sortByName).map(agency => {
                             return (
-                                <Link className={"flex grow justify-items-center items-center block text-center align-middle p-3 text-slate-1000 bg-slate-350 rounded transition ease-in-out" + hoverClasses}
-                                    key={agency?.id}
-                                    href={formatLink(getFeedUrl(agency))}>
-                                    <p>
-                                        {agency?.name}
-                                    </p> <div className="p-3">
-                                        {<AgencyCheckBox feedId={agency?.id} />}
+                                <div className={"grid grid-rows-2 gap-2 h-full block p-3 text-slate-1000 bg-slate-350 hover:bg-slate-400 rounded transition ease-in-out"}
+                                    key={agency?.id}>
+                                    <div className="grid grid-cols-2 justify-items-center items-center text-center align-middle">
+                                        <p>
+                                            {agency?.name}
+                                        </p> 
+                                        <div className="p-2">
+                                            {<AgencyCheckBox feedId={agency?.id} />}
+                                        </div>
                                     </div>
-                                </Link>)
+                                    <div className="grid grid-cols-2 justify-items-center items-center text-center align-middle">
+                                        <Link 
+                                            className="p-2 hover:shadow-lg bg-slate-300 rounded transition ease-in-out border border-solid border-slate-900"
+                                            href={formatLink(getGraphUrl(agency))}>
+                                            Delay Graph
+                                        </Link>
+                                        <Link 
+                                            className="p-2 hover:shadow-lg bg-slate-300 rounded transition ease-in-out border border-solid border-slate-900"
+                                            href={formatLink(getMapUrl(agency))}>
+                                            Delay Map
+                                        </Link>
+                                    </div>
+                                </div>)
                         })}
                     </div>
                 </div>
@@ -36,20 +48,20 @@ export default async function AgenciesPage() {
     );
 }
 
-function getFeedUrl(agency) {
+export function getGraphUrl(agency) {
     return "/" + agency?.state + "/" + agency?.name + "/" + agency?.id + "/graph"
 }
 
-function sortByStatus(agency1, agency2) {
-    return mapStatusToInt(agency1?.status) - mapStatusToInt(agency2?.status);
+export function getMapUrl(agency) {
+    return "/" + agency?.state + "/" + agency?.name + "/" + agency?.id + "/map"
 }
 
-function mapStatusToInt(status) {
-    if (status === "ACT") {
-        return 1;
-    } else if (status = "UNAVAILABLE") {
-        return 2;
-    } else {
-        return 3;
+function sortByName(agency1, agency2) {
+    if(agency1?.name < agency2?.name) {
+        return -1;
     }
+    if(agency1?.name > agency2?.name) {
+        return 1;
+    }
+    return 0;
 }

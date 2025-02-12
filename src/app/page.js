@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatLink } from "./[state]/[agencyName]/[id]/graph/page";
+import { formatLink } from "utils/linkFormat";
 
 export default function Home() {
   return (

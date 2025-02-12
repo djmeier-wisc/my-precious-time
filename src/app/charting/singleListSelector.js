@@ -12,39 +12,37 @@ const MenuProps = {
     },
 };
 function getStyles(currSelection, allSelectionList, theme) {
+    if(!allSelectionList) {
+        return {}
+    }
     return {
         fontWeight:
-            allSelectionList.indexOf(currSelection) === -1
+            allSelectionList !== currSelection
                 ? theme.typography.fontWeightRegular
                 : theme.typography.fontWeightMedium,
     };
 };
 
-export default function MultiListSelect({ busOptions, setCurrBusList, currBusList }) {
+export default function SingleListSelect({ options, setCurrSelection, currSelection, labelName, className = ""}) {
     const theme = useTheme();
     let handleChange = (event) => {
-        const {
-            target: { value },
-        } = event;
-        setCurrBusList(typeof value === 'string' ? value.split(',') : value);
+        setCurrSelection(event.target.value);
     }
     return (
-        <FormControl className="w-full">
-            <InputLabel id="demo-multiple-name-label">Select Route(s)</InputLabel>
+        <FormControl className={"w-full " + className}>
+            <InputLabel style={{color: "rgb(241 245 249 / var(--tw-text-opacity))"}}>{labelName}</InputLabel>
             <Select
-                labelId="demo-multiple-name-label"
-                id="demo-multiple-name"
-                multiple
-                value={currBusList}
+                value={currSelection}
                 onChange={handleChange}
-                input={<OutlinedInput label="Select Routes" />}
+                input={<OutlinedInput label={labelName} />}
                 MenuProps={MenuProps}
+                style={{zIndex: 50}}
             >
-                {busOptions && busOptions?.map((name) => (
+                {options && options?.map((name) => (
                     <MenuItem
                         key={name}
                         value={name}
-                        style={getStyles(name, currBusList, theme)}
+                        style={getStyles(name, currSelection, theme)}
                     >
                         {name}
                     </MenuItem>

@@ -7,11 +7,11 @@ import GraphText from "app/main-text/graph-text";
 import DelayLineChart from "./chart";
 export default function ChartMenu({ state, feedName, feedId }) {
     return (
-        <main className="h-screen">
+        <main className="h-[calc(100vh-65px)]">
             <div className="grid grid-cols-2 lg:grid-cols-6 h-full">
                 <ChartWrapper>
                     <div className="col-span-2 px-3 bg-slate-800">
-                        <GraphText state={state} feedName={feedName} />
+                        <GraphText state={state} feedName={feedName} feedId={feedId} />
                         <div className="grid grid-rows-3 gap-4 py-5">
                             <GraphTypeSelector curr={CONST_AVG} />
                             <GraphTypeSelector curr={CONST_MAX} />

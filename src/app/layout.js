@@ -5,6 +5,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import MainNav from './nav/navbar';
 import Script from 'next/script'
+import Link from 'next/link';
 
 export const metadata = {
   title: 'My Precious Time',

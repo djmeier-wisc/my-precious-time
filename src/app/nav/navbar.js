@@ -22,9 +22,8 @@ export default function MainNav() {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
-    const siteName = "MPT";
     return (
-        <AppBar position="static" className='z-10 border-solid border-b-4 border-slate-800 bg-slate-300 text-slate-800 sticky top-0' sx={{ bgcolor: "rgb(203 213 225)", color: "rgb(30 41 59)" }}>
+        <AppBar position="static" className='z-50 border-solid border-b-4 border-slate-800 bg-slate-300 text-slate-800 sticky top-0' sx={{ bgcolor: "rgb(203 213 225)", color: "rgb(30 41 59)", height: 65}}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
@@ -41,7 +40,7 @@ export default function MainNav() {
                         }}
                     >
                         <Link href="/">
-                            {siteName}
+                            My Precious Time
                         </Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -75,9 +74,9 @@ export default function MainNav() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="available agencies" url="/agencies" />
-                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name={"about me"} url={"https://github.com/djmeier-wisc"} />
-                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name={"api reference"} url={"https://api.my-precious-time.com/webjars/swagger-ui/index.html"} />
+                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="available transit feeds" url="/agencies" />
+                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="report an issue" url="https://github.com/djmeier-wisc/my-precious-time/issues/new" />
+                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="api reference" url="https://api.my-precious-time.com/webjars/swagger-ui/index.html" />
                         </Menu>
                     </Box>
                     <Typography
@@ -95,15 +94,15 @@ export default function MainNav() {
                         }}
                     >
                         <Link href="/">
-                            {siteName}
+                            MPT
                         </Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="available agencies" url="/agencies" />
-                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="about me" url="https://github.com/djmeier-wisc" />
+                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="available transit feeds" url="/agencies" />
+                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="report an issue" url="https://github.com/djmeier-wisc" />
                         <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="api reference" url="https://api.my-precious-time.com/webjars/swagger-ui/index.html" />
                     </Box>
-                    <KofiButton color='#1e293b' title='Help Fund the Project' kofiID='doug_meier' />
+                    <KofiButton color='#1e293b' title='Support Us' kofiID='doug_meier' />
                 </Toolbar>
             </Container>
         </AppBar>
