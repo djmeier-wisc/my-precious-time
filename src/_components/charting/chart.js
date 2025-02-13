@@ -27,9 +27,8 @@ ChartJS.register(
     Colors
 );
 import dayjs from "dayjs";
-import { useChartContext } from "./chartContext";
 import { Help } from "@mui/icons-material";
-import { getAllRoutes } from "api/transitDelayServiceApi";
+import { getAllRoutes } from "../../api/transitDelayServiceApi";
 
 export const getMidnightTomorrow = () => {
     let date = new Date();
@@ -43,7 +42,6 @@ export const getMidnightSixDaysAgo = () => {
     return date;
 }
 export default function DelayLineChart({ feedId }) {
-    const { chartContext } = useChartContext();
     const DEFAULT_UNITS_SPAN = 7;
     const DEFAULT_START_DATE = getMidnightSixDaysAgo();
     const DEFAULT_END_DATE = getMidnightTomorrow();
@@ -80,7 +78,7 @@ export default function DelayLineChart({ feedId }) {
             fetchGraphData();
         }, 500);
         return () => clearTimeout(delayInput);
-    }, [chartContext, startDate, endDate, units, selectedBusStates, useColor]);
+    }, [startDate, endDate, units, selectedBusStates, useColor]);
     useEffect(() => {
         (async () => {
             var response = await getAllRoutes(feedId);

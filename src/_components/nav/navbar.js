@@ -39,7 +39,7 @@ export default function MainNav() {
                             textDecoration: 'none',
                         }}
                     >
-                        <Link href="/">
+                        <Link href="/public">
                             My Precious Time
                         </Link>
                     </Typography>
@@ -93,7 +93,7 @@ export default function MainNav() {
                             textDecoration: 'none',
                         }}
                     >
-                        <Link href="/">
+                        <Link href="/public">
                             MPT
                         </Link>
                     </Typography>

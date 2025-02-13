@@ -1,9 +1,9 @@
 
 'use client'
-import { CONST_AVG, CONST_MAX, CONST_PERC } from "app/charting/chartContext";
-import ChartWrapper from "app/charting/chartContextWrapper";
-import GraphTypeSelector from "app/charting/graphTypeSelector";
-import GraphText from "app/main-text/graph-text";
+import { CONST_AVG, CONST_MAX, CONST_PERC } from "./chartContext";
+import ChartWrapper from "./chartContextWrapper";
+import GraphTypeSelector from "./graphTypeSelector";
+import GraphText from "../main-text/graph-text";
 import DelayLineChart from "./chart";
 export default function ChartMenu({ state, feedName, feedId }) {
     return (

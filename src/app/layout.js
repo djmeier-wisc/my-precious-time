@@ -3,7 +3,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import MainNav from './nav/navbar';
+import MainNav from '../_components/nav/navbar';
 import Script from 'next/script'
 import Link from 'next/link';
 

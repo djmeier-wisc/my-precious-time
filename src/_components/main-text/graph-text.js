@@ -1,6 +1,6 @@
-import { getGraphUrl, getMapUrl } from "app/agencies/page";
+import { getGraphUrl, getMapUrl } from "../../app/agencies/page";
 import Link from "next/link";
-import { deformatLink, formatLink } from "utils/linkFormat";
+import { deformatLink, formatLink } from "../../utils/linkFormat";
 
 export default async function GraphText({ state, feedName, feedId }) {
     return (

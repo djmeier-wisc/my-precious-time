@@ -1,4 +1,6 @@
 // const BASE_URL = "https://api.my-precious-time.com";
+import dayjs from "dayjs";
+
 const BASE_URL = "http://localhost:8080";
 export async function getAllRoutes(feedId) {
     try {
@@ -36,4 +38,36 @@ export async function getGeoJsonFor(feedId, route, numDays, hourStarted, hourEnd
     } catch (error) {
         return null;
     }
+}
+
+const GraphTypes = {
+    AVG: "average",
+    MAX: "max",
+    PERCENT: "percent"
+}
+
+export async function getGraphData(feedId, type = "average", graphOptions) {
+    let graphUrl = `${BASE_URL}/v1/graph/${type}/${feedId}`
+    let params = []
+    if (graphOptions?.startTime) params.push('startTime=' + graphOptions?.startTime.unix());
+    if (graphOptions?.endTime) params.push('endTime=' + graphOptions?.endTime.unix());
+    if (graphOptions?.units) params.push('units=' + graphOptions?.units);
+    if (graphOptions?.useColor) params.push("useColor=" + graphOptions?.useColor);
+    if (graphOptions?.routes) graphOptions?.routes.forEach(busState => params.push('routes=' + busState));
+    if (graphOptions?.upperOnTimeThreshold) params.push("upperOnTimeThreshold=" + graphOptions.upperOnTimeThreshold);
+    if (graphOptions?.lowerOnTimeThreshold) params.push("lowerOnTimeThreshold=" + graphOptions.lowerOnTimeThreshold)
+    graphUrl += params.join("&");
+    let res = await fetch(graphUrl);
+    if (res.ok) return res.json();
+    else return null;
+}
+
+export async function getGraphDataByDays(feedId, type, daysInPast, routes) {
+    let graphOptions = {
+        startTime: dayjs().endOf('day').subtract(daysInPast, 'days').unix(),
+        endTime: dayjs().endOf('day'),
+        units: daysInPast === 1 ? 24 : daysInPast,
+        routes: routes
+    };
+    return getGraphData(feedId,type,graphOptions)
 }
