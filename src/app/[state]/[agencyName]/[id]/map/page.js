@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 import MapWithControls from "app/map/mapWithControls";
 
 export async function generateStaticParams() {
-    const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all").then(r => r.json());
+    const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all", { cache: "no-store" }).then(r => r.json());
     // Get the paths we want to pre-render based on posts
     const paths = agencies.map((/** @type {{ state: string; name: string; id: any; }} */ feed) => (
         {
