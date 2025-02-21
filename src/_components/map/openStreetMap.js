@@ -1,13 +1,15 @@
 'use client';
 import {useEffect, useRef, useState} from "react";
 import {GeoJSON, MapContainer, Popup, TileLayer} from "react-leaflet";
+import 'leaflet/dist/leaflet.css'
 
 export default function OpenStreetMap({ geoJsonData }) {
     const mapRef = useRef();
+    const dataRef = useRef();
     const [popupData, setPopupData] = useState(null);
     useEffect(()=>{
         setPopupData(null)
-    }, [geoJsonData])
+    }, [geoJsonData]);
     const getColorBetweenRedAndGreen = (d) => {
         return d > 20 ? '#FF0000' :  // Bright red for very late
                d > 15 ? '#DB2400' :  // Darker red
@@ -20,7 +22,7 @@ export default function OpenStreetMap({ geoJsonData }) {
     }
 
     useEffect(() => {
-        if (geoJsonData == undefined) return undefined;
+        if (!geoJsonData) return undefined;
         let coordinates = geoJsonData?.features
             ?.map(f => f.geometry)
             ?.flatMap(g => g.coordinates);
@@ -33,29 +35,29 @@ export default function OpenStreetMap({ geoJsonData }) {
         let maxLon = Math.max(...lons);
         const bounds = [[minLon, minLat], [maxLon, maxLat]];
         mapRef?.current?.fitBounds(bounds);
-    }, geoJsonData);
+        dataRef?.current?.clearLayers().addData(geoJsonData);
+    }, [geoJsonData]);
 
     const style = (feature) => {
         return {
             color: getColorBetweenRedAndGreen(feature.properties.averageDelay)
         };
     };
-
     return (
-        <MapContainer ref={mapRef} scrollWheelZoom={true} className="h-full">
+        <MapContainer ref={mapRef} scrollWheelZoom={isShiftPressed} style={{height: 500}} className="w-full">
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {geoJsonData && <GeoJSON onEachFeature={(feature,layer)=>{
+            {!!geoJsonData && <GeoJSON onEachFeature={(feature, layer) => {
                 layer.on('click',(e)=>{
                     setPopupData({
                         latLng: e.latlng,
                         properties: feature.properties
                     });
                 })
-            }} pathOptions={{ stroke: true }} style={style} data={geoJsonData} />}
-           {popupData && <Popup position={popupData?.latLng}>
+            }} pathOptions={{stroke: true}} ref={dataRef} style={style} data={geoJsonData}/>}
+            {!!popupData && <Popup position={popupData?.latLng}>
                 Average Minutes Delayed: {Number(popupData?.properties?.averageDelay).toFixed(2)}
             </Popup>}
         </MapContainer>

@@ -1,5 +1,5 @@
 'use client'
-import MultiListSelect from "./busSelector";
+import MultiListSelect from "./multiSelect";
 import {getAllRoutes} from "../../api/transitDelayServiceApi";
 import {useEffect, useState} from "react";
 

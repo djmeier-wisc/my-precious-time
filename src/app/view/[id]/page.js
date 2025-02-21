@@ -13,10 +13,10 @@ export async function generateStaticParams() {
 
 export default async function LineDelayMap(props) {
     const params = await props.params;
-    const agencyName = await getAgencyById(params.id)?.name;
+    const agencyName = (await getAgencyById(params.id))?.name;
     return (
         <main>
-            <ViewPage feedId={params.id} agencyName={agencyName ? agencyName : "Unknown"}/>
+            <ViewPage feedId={params.id} agencyName={agencyName}/>
         </main>
     )
 }

@@ -50,11 +50,10 @@ export default function ViewPage({feedId, agencyName}) {
         <div className="flex flex-col lg:flex-row bg-slate-700 min-h-screen p-6 gap-4">
             <aside
                 className="w-full lg:w-1/4 sticky lg:top-1 h-auto lg:h-screen p-6 bg-slate-300 rounded-2xl shadow-xl flex flex-col gap-4 text-slate-800">
-                <h2 className="text-2xl font-bold">Transit Delay Analysis - {agencyName}</h2>
+                <h2 className="text-2xl font-bold">{agencyName}</h2>
                 <h3 className="text-lg font-bold">How delayed is your 🚎?</h3>
                 <p>Track the delay of your favorite routes using the tools above.</p>
                 <p>Select the Date Range and the routes you want to analyze.</p>
-                <p>Data is gathered every 5 minutes, pending service availability.</p>
                 <RouteMultiSelector
                     feedId={feedId}
                     currRouteList={routes}
@@ -69,8 +68,16 @@ export default function ViewPage({feedId, agencyName}) {
                 />
             </aside>
             <main className="w-full lg:w-3/4 space-y-6 lg:pl-6">
-                <div className="bg-slate-300 p-4 rounded-2xl shadow-lg text-slate-800">
-                    <OpenStreetMapByFeedId feedId={feedId} selectedRoutes={routes} numDays={daysInt}/>
+                <div className="bg-slate-300 p-4 rounded-2xl shadow-lg text-slate-800 h-500px">
+                    <div className="flex flex-row">
+                        <h2 className="text-xl font-semibold mb-2">Mapped Average Delay</h2>
+                        <Tooltip title="Try clicking on a line on the graph to see statistics" className="m-1">
+                            <Help/>
+                        </Tooltip>
+                    </div>
+                    <div style={{height: 500}} className="h-full w-full grid place-items-center">
+                        <OpenStreetMapByFeedId feedId={feedId} selectedRoutes={routes} numDays={daysInt}/>
+                    </div>
                 </div>
                 <div className="bg-slate-300 p-4 rounded-2xl shadow-lg text-slate-800">
                     <div className="flex flex-row">

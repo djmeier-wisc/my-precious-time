@@ -66,7 +66,14 @@ export default function MapWithControls({feedId, feedName, state}) {
         setGeoJson(null);
         setLoading(true);
         (async () => {
-            let geoJson = await getGeoJsonFor(feedId, selectedRoute, numDays, selectedHours[0], selectedHours[1], daysSelected);
+            let geoJson = await getGeoJsonFor({
+                feedId,
+                selectedRoute,
+                numDays,
+                hourStarted: selectedHours[0],
+                hourEnded: selectedHours[1],
+                daysSelected
+            });
             if (geoJson == null) {
                 setApiErr(true);
                 return;
