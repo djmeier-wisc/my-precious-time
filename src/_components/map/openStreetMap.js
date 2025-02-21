@@ -1,7 +1,6 @@
 'use client';
-import zIndex from "@mui/material/styles/zIndex";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { TileLayer, GeoJSON, MapContainer, Popup } from "react-leaflet";
+import {useEffect, useRef, useState} from "react";
+import {GeoJSON, MapContainer, Popup, TileLayer} from "react-leaflet";
 
 export default function OpenStreetMap({ geoJsonData }) {
     const mapRef = useRef();

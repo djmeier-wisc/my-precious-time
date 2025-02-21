@@ -1,5 +1,5 @@
 'use client'
-import { FormControl, InputLabel, MenuItem, OutlinedInput, Select, useTheme } from "@mui/material";
+import {FormControl, InputLabel, MenuItem, OutlinedInput, Select, useTheme} from "@mui/material";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -11,8 +11,9 @@ const MenuProps = {
         },
     },
 };
+
 function getStyles(currSelection, allSelectionList, theme) {
-    if(!allSelectionList) {
+    if (!allSelectionList) {
         return {}
     }
     return {
@@ -21,20 +22,20 @@ function getStyles(currSelection, allSelectionList, theme) {
                 ? theme.typography.fontWeightRegular
                 : theme.typography.fontWeightMedium,
     };
-};
+}
 
-export default function SingleListSelect({ options, setCurrSelection, currSelection, labelName, className = ""}) {
+export default function SingleListSelect({options, setCurrSelection, currSelection, labelName, className = ""}) {
     const theme = useTheme();
     let handleChange = (event) => {
         setCurrSelection(event.target.value);
     }
     return (
         <FormControl className={"w-full " + className}>
-            <InputLabel style={{color: "rgb(241 245 249 / var(--tw-text-opacity))"}}>{labelName}</InputLabel>
+            <InputLabel>{labelName}</InputLabel>
             <Select
                 value={currSelection}
                 onChange={handleChange}
-                input={<OutlinedInput label={labelName} />}
+                input={<OutlinedInput label={labelName}/>}
                 MenuProps={MenuProps}
                 style={{zIndex: 50}}
             >

@@ -1,21 +1,25 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
-    Chart as ChartJS,
     CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Legend,
-    Tooltip,
+    Chart as ChartJS,
     Colors,
+    Legend,
+    LinearScale,
+    LineElement,
+    PointElement,
+    Title,
+    Tooltip,
 } from 'chart.js';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { Line } from 'react-chartjs-2';
-import { CircularProgress, TextField, Tooltip as TT } from "@mui/material";
+import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
+import {Line} from 'react-chartjs-2';
+import {CircularProgress, TextField, Tooltip as TT} from "@mui/material";
 import MultiListSelect from "./busSelector";
 import ColorCheckbox from "./colorCheckbox";
+import dayjs from "dayjs";
+import {Help} from "@mui/icons-material";
+import {getAllRoutes} from "../../api/transitDelayServiceApi";
+
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -26,9 +30,6 @@ ChartJS.register(
     Legend,
     Colors
 );
-import dayjs from "dayjs";
-import { Help } from "@mui/icons-material";
-import { getAllRoutes } from "../../api/transitDelayServiceApi";
 
 export const getMidnightTomorrow = () => {
     let date = new Date();
@@ -41,7 +42,7 @@ export const getMidnightSixDaysAgo = () => {
     date.setDate(date.getDate() - 7);
     return date;
 }
-export default function DelayLineChart({ feedId }) {
+export default function DelayLineChart({feedId}) {
     const DEFAULT_UNITS_SPAN = 7;
     const DEFAULT_START_DATE = getMidnightSixDaysAgo();
     const DEFAULT_END_DATE = getMidnightTomorrow();
@@ -129,15 +130,18 @@ export default function DelayLineChart({ feedId }) {
         <div className="h-full w-full">
             <div className="grid sm:grid-cols-8 gap-3">
                 <div className="flex flex-row col-span-2 justify-items-center">
-                    <DateTimePicker defaultValue={startDate} label="Start Date" onChange={setStartDate} className="w-full" />
-                    <TT title="Select where the left side of the graph starts" className="self-center justify-self-center">
-                        <Help />
+                    <DateTimePicker defaultValue={startDate} label="Start Date" onChange={setStartDate}
+                                    className="w-full"/>
+                    <TT title="Select where the left side of the graph starts"
+                        className="self-center justify-self-center">
+                        <Help/>
                     </TT>
                 </div>
                 <div className="flex flex-row col-span-2 justify-items-center">
-                    <DateTimePicker defaultValue={endDate} label="End Date" onChange={setEndDate} className="w-full" />
-                    <TT title="Select where the right side of the graph starts" className="self-center justify-self-center">
-                        <Help />
+                    <DateTimePicker defaultValue={endDate} label="End Date" onChange={setEndDate} className="w-full"/>
+                    <TT title="Select where the right side of the graph starts"
+                        className="self-center justify-self-center">
+                        <Help/>
                     </TT>
                 </div>
                 <div className="flex flex-row col-span-1 justify-items-center">
@@ -154,26 +158,29 @@ export default function DelayLineChart({ feedId }) {
                         defaultValue={DEFAULT_UNITS_SPAN}
                     />
                     <TT title="Select the number of spans of the graph" className="self-center justify-self-center">
-                        <Help />
+                        <Help/>
                     </TT>
                 </div>
                 <div className="flex flex-row col-span-1 place-content-center">
-                    <ColorCheckbox setColors={setUseColor} colors={useColor} />
+                    <ColorCheckbox setColors={setUseColor} colors={useColor}/>
                 </div>
                 <div className="flex flex-row col-span-2 content-center">
                     <div className="grid grid-cols-8">
                         <div className="col-span-7">
-                            <MultiListSelect busOptions={allBusStates} setCurrBusList={setSelectedBusStates} currBusList={selectedBusStates} />
+                            <MultiListSelect busOptions={allBusStates} setCurrBusList={setSelectedBusStates}
+                                             currBusList={selectedBusStates}/>
                         </div>
-                        <TT title="Select what routes you want to put on the graph" className="self-center justify-self-center">
-                            <Help />
+                        <TT title="Select what routes you want to put on the graph"
+                            className="self-center justify-self-center">
+                            <Help/>
                         </TT>
                     </div>
                 </div>
             </div>
-            <div style={{ height: 500 }} className="h-full w-full justify-items-center">
-                {!isError && fetchedData && <Line options={options} className="w-full justify-stretch" data={datasets} />}
-                {!isError && !fetchedData && <CircularProgress className="justify-self-center" />}
+            <div style={{height: 500}} className="h-full w-full justify-items-center">
+                {!isError && fetchedData &&
+                    <Line options={options} className="w-full justify-stretch" data={datasets}/>}
+                {!isError && !fetchedData && <CircularProgress className="justify-self-center"/>}
                 {isError && <p>Sorry, we encountered an error from our server. Please try again soon.</p>}
             </div>
         </div>

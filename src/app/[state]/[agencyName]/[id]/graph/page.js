@@ -1,5 +1,5 @@
 import ChartMenu from "app/charting/chartMenu";
-import { deformatLink, formatLink } from "utils/linkFormat";
+import {deformatLink, formatLink} from "utils/linkFormat";
 
 export async function generateStaticParams() {
     const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all").then(r => r.json());
@@ -13,8 +13,11 @@ export async function generateStaticParams() {
     ));
     return paths;
 }
-export default function GraphPage({ params }) {
+
+export default async function GraphPage(props) {
+    const params = await props.params;
     return (
-        <ChartMenu state={deformatLink(params.state)} feedName={deformatLink(params.agencyName)} feedId={deformatLink(params.id)} />
+        <ChartMenu state={deformatLink(params.state)} feedName={deformatLink(params.agencyName)}
+                   feedId={deformatLink(params.id)}/>
     );
 }

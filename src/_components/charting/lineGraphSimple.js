@@ -1,37 +1,40 @@
 'use client'
-import {Line} from "react-chartjs-2";
-import {Suspense, useState} from "react";
+import {useEffect, useState} from "react";
 import {getGraphDataByDays} from "../../api/transitDelayServiceApi";
+import {LinearProgress} from "@mui/material";
+import {Line} from "react-chartjs-2";
+
 
 export default function BusDelayLineGraph({yAxisDesc, feedId, graphType, daysInPast, routes}) {
-    const [datasets, setDataSets] = useState({});
+    const [lineGraphData, setLineGraphData] = useState(undefined);
+    useEffect(() => {
+        setLineGraphData(undefined);
+        if (routes.length === 0) {
+            return;
+        }
+        (async () => {
+            let graphDataResponse = await getGraphDataByDays(feedId, graphType, daysInPast, routes);
+            setLineGraphData(graphDataResponse);
+        })();
+    }, [feedId, graphType, daysInPast, routes])
     const options = {
-        maintainAspectRatio: false,
-        scales: {
+        maintainAspectRatio: false, scales: {
             y: {
                 title: {
-                    display: true,
-                    text: yAxisDesc
+                    display: true, text: yAxisDesc
                 }
-            },
-            x: {
+            }, x: {
                 title: {
-                    display: true,
-                    text: "Date"
+                    display: true, text: "Date"
                 }
             }
         }
     }
-    return (
-        <Suspense>
-            <LineGraph />
-        </Suspense>
-    )
+    return (<div style={{height: 500}} className="h-full w-full grid place-items-center">
+        {lineGraphData ? <Line options={options} data={lineGraphData}/> : <ChartSkeleton/>}
+    </div>);
 }
 
-async function LineGraph(feedId, type, daysInPast, routes) {
-    let resp = getGraphDataByDays(feedId, type, daysInPast, routes);
-    return <Line options={options} data={datasets} />
+function ChartSkeleton() {
+    return <LinearProgress/>;
 }
-
-function Fall

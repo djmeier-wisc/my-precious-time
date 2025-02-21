@@ -2,14 +2,15 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 export default async function Home() {
-    const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all", { next: { revalidate: 5 } })
+    const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all", {next: {revalidate: 5}})
         .then(r => r.json())
         .then(r => r.filter(a => a?.status !== "UNAUTHORIZED"));
 
-    const AgencyCheckBox = dynamic(() => import('../_components/agency/agencyCheckBox'), { ssr: false });
+    const AgencyCheckBox = dynamic(() => import('../_components/agency/agencyCheckBox'), {ssr: false});
 
     return (
-        <main className="h-screen bg-gradient-to-b from-slate-300 to-slate-800 text-slate-100 flex flex-col items-center">
+        <main
+            className="h-screen bg-gradient-to-b from-slate-300 to-slate-800 text-slate-100 flex flex-col items-center">
             {/* Hero Section */}
             <section className="text-center py-16">
                 <h1 className="text-5xl font-extrabold mb-4 text-slate-900">Welcome to My Precious Time</h1>
@@ -28,7 +29,7 @@ export default async function Home() {
                         <div className="flex justify-between items-center mb-3">
                             <h2 className="text-xl font-semibold text-white">{agency?.name}</h2>
                             <div className="m-5">
-                                <AgencyCheckBox feedId={agency?.id} />
+                                <AgencyCheckBox feedId={agency?.id}/>
                             </div>
                         </div>
                     </Link>

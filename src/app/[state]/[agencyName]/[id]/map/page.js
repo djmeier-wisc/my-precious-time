@@ -1,7 +1,6 @@
-
-import { formatLink } from "utils/linkFormat";
+import {formatLink} from "utils/linkFormat";
 import "leaflet/dist/leaflet.css";
-import MapWithControls from "app/map/mapWithControls";
+import MapWithControls from "../../../../../_components/map/mapWithControls";
 
 export async function generateStaticParams() {
     const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all").then(r => r.json());
@@ -15,8 +14,10 @@ export async function generateStaticParams() {
     ));
     return paths;
 }
-export default function LineDelayMap({ params }) {
+
+export default async function LineDelayMap(props) {
+    const params = await props.params;
     return (
-        <MapWithControls feedId={params.id} feedName={params.agencyName} state={params.state} />
+        <MapWithControls feedId={params.id} feedName={params.agencyName} state={params.state}/>
     );
 }
