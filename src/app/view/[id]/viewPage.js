@@ -71,7 +71,7 @@ export default function ViewPage({feedId, agencyName}) {
                 <div className="bg-slate-300 p-4 rounded-2xl shadow-lg text-slate-800 h-500px">
                     <div className="flex flex-row">
                         <h2 className="text-xl font-semibold mb-2">Mapped Average Delay</h2>
-                        <Tooltip title="Try clicking on a line on the graph to see statistics" className="m-1">
+                        <Tooltip title="Click on a line to see statistics about reliability" className="m-1">
                             <Help/>
                         </Tooltip>
                     </div>
@@ -92,6 +92,7 @@ export default function ViewPage({feedId, agencyName}) {
                         yAxisDesc={'Average Delay (Minutes)'}
                         routes={routes}
                         daysInPast={daysInt}
+                        yAxisMin={0}
                     />
                 </div>
                 <div className="bg-slate-300 p-4 rounded-2xl shadow-lg text-slate-800">
@@ -122,6 +123,7 @@ export default function ViewPage({feedId, agencyName}) {
                         yAxisDesc={'Max Delay (Minutes)'}
                         routes={routes}
                         daysInPast={daysInt}
+                        yAxisMin={0}
                     />
                 </div>
             </main>

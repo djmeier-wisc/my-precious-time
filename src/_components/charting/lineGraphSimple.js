@@ -5,7 +5,7 @@ import {LinearProgress} from "@mui/material";
 import {Line} from "react-chartjs-2";
 
 
-export default function BusDelayLineGraph({yAxisDesc, feedId, graphType, daysInPast, routes}) {
+export default function BusDelayLineGraph({yAxisDesc, feedId, graphType, daysInPast, routes, yAxisMin}) {
     const [lineGraphData, setLineGraphData] = useState(undefined);
     useEffect(() => {
         setLineGraphData(undefined);
@@ -21,7 +21,9 @@ export default function BusDelayLineGraph({yAxisDesc, feedId, graphType, daysInP
         maintainAspectRatio: false, scales: {
             y: {
                 title: {
-                    display: true, text: yAxisDesc
+                    display: true,
+                    text: yAxisDesc,
+                    min: yAxisMin
                 }
             }, x: {
                 title: {

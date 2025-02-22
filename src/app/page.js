@@ -3,8 +3,7 @@ import Link from 'next/link';
 
 export default async function Home() {
     const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all", {next: {revalidate: 5}})
-        .then(r => r.json())
-        .then(r => r.filter(a => a?.status !== "UNAUTHORIZED"));
+        .then(r => r.json());
 
     const AgencyCheckBox = dynamic(() => import('../_components/agency/agencyCheckBox'), {ssr: false});
     const MapBackground = dynamic(() => import('../_components/background/mapBackground'), {ssr: false});
@@ -19,6 +18,7 @@ export default async function Home() {
                     <p className="text-2xl text-slate-800">A transit delay tracker for multiple agencies 🚌</p>
                     <p className="text-2xl text-slate-800">Because your time waiting for the bus is <Link
                         href="https://open.spotify.com/track/6m5mVZckUxG2spCFzSxQX8?si=5ad25aca3d60481c"
+                        target="_blank"
                         className="underline">precious</Link> too!</p>
                     <p className="text-lg text-slate-800">Focusing on Wisconsin, with more agencies on the way :)</p>
                 </section>

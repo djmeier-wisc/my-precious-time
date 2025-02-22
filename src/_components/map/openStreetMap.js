@@ -44,7 +44,7 @@ export default function OpenStreetMap({ geoJsonData }) {
         };
     };
     return (
-        <MapContainer ref={mapRef} scrollWheelZoom={isShiftPressed} style={{height: 500}} className="w-full">
+        <MapContainer ref={mapRef} scrollWheelZoom={false} style={{height: 500}} className="w-full">
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

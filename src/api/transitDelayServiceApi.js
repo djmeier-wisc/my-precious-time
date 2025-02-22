@@ -1,5 +1,5 @@
-// const BASE_URL = "https://api.my-precious-time.com";
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = "https://api.my-precious-time.com";
+// const BASE_URL = "http://localhost:8080";
 import dayjs from "dayjs";
 
 export async function getAllRoutes(feedId) {
@@ -77,6 +77,28 @@ export async function getGraphDataByDays(feedId, type, daysInPast, routes) {
 
 export async function getAgencyById(feedId) {
     let url = `${BASE_URL}/v1/agencies/${feedId}`;
+    let res = await fetch(url);
+    if (res.ok) return await res.json();
+    else return null;
+}
+
+export async function getAllFeeds() {
+    let url = `${BASE_URL}/v1/agencies/all`;
+    let res = await fetch(url);
+    if (res.ok) return await res.json();
+    else return null;
+}
+
+async function getRandomFeedId() {
+    let allFeeds = await getAllFeeds();
+    return allFeeds[Math.floor(Math.random() * allFeeds.length)]
+}
+
+export async function getRandomShape(feedId) {
+    if (feedId == undefined) {
+        feedId = (await getRandomFeedId())?.id;
+    }
+    let url = `${BASE_URL}/v1/map/${feedId}/randomRoute`
     let res = await fetch(url);
     if (res.ok) return await res.json();
     else return null;
