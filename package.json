@@ -21,7 +21,7 @@
     "kofi-button": "^1.1.1",
     "leaflet": "^1.9.4",
     "leaflet-defaulticon-compatibility": "^0.1.2",
-    "next": "^14.2.3",
+    "next": "^14.2.21",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
