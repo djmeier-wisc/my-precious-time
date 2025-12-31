@@ -7,3 +7,8 @@ services:
     ports:
       - "3000:80"
     restart: unless-stopped
+    networks:
+      - cloudflare_nw
+networks:
+  cloudflare_nw:
+    external: true
