@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import KofiButton from 'kofi-button';
 import CustomMenuItem from './menuItem';
 import Link from 'next/link';
+import { BASE_URL } from 'api/transitDelayServiceApi';
 
 
 export default function MainNav() {
@@ -80,7 +81,7 @@ export default function MainNav() {
                             <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="report an issue"
                                             url="https://github.com/djmeier-wisc/my-precious-time/issues/new"/>
                             <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="api reference"
-                                            url="https://api.my-precious-time.com/webjars/swagger-ui/index.html"/>
+                                            url={`${BASE_URL}/webjars/swagger-ui/index.html`}/>
                         </Menu>
                     </Box>
                     <Typography
@@ -105,7 +106,7 @@ export default function MainNav() {
                         <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="report an issue"
                                         url="https://github.com/djmeier-wisc/my-precious-time/issues/new"/>
                         <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="api reference"
-                                        url="https://api.my-precious-time.com/webjars/swagger-ui/index.html"/>
+                                        url={`${BASE_URL}/webjars/swagger-ui/index.html`}/>
                     </Box>
                     <KofiButton color='#1e293b' title='Support Us' kofiID='doug_meier'/>
                 </Toolbar>

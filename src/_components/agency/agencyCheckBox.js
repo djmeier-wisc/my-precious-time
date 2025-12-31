@@ -1,12 +1,13 @@
 'use client'
 import {Cancel, CheckCircle, CheckCircleOutline} from "@mui/icons-material";
 import {CircularProgress, Tooltip} from "@mui/material";
+import { BASE_URL } from "api/transitDelayServiceApi";
 import {useEffect, useState} from "react";
 
 export default function AgencyCheckBox({feedId}) {
     const [feedStatus, setFeedStatus] = useState(undefined);
     useEffect(() => {
-        fetch("https://api.my-precious-time.com/v1/agencies/" + feedId)
+        fetch(`${BASE_URL}/v1/agencies/${feedId}`)
             .then(res => {
                 if (res.ok) return res.json();
                 else {
@@ -21,7 +22,7 @@ export default function AgencyCheckBox({feedId}) {
         <>
             {feedStatus === undefined &&
                 <CircularProgress size={20}/>}
-            {feedStatus === 'ACT' &&
+            {feedStatus === 'ACT'  &&
                 <Tooltip title="Active Feed: We are successfully polling this feed.">
                     <CheckCircle/>
                 </Tooltip>}

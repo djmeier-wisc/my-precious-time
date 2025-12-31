@@ -1,8 +1,9 @@
+import { BASE_URL } from 'api/transitDelayServiceApi';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 export default async function Home() {
-    const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all", {next: {revalidate: 5}})
+    const agencies = await fetch(`${BASE_URL}/v1/agencies/all`, {next: {revalidate: 5}})
         .then(r => r.json());
 
     const AgencyCheckBox = dynamic(() => import('../_components/agency/agencyCheckBox'), {ssr: false});

@@ -1,5 +1,5 @@
-const BASE_URL = "https://api.my-precious-time.com";
-// const BASE_URL = "http://localhost:8080";
+const BASE_URL = "https://api-mpt.dougmeier.dev";
+// export const BASE_URL = "http://localhost:8080";
 import dayjs from "dayjs";
 
 export async function getAllRoutes(feedId) {

@@ -1,8 +1,8 @@
 import ViewPage from "./viewPage";
-import {getAgencyById} from "../../../api/transitDelayServiceApi";
+import {BASE_URL, getAgencyById} from "../../../api/transitDelayServiceApi";
 
 export async function generateStaticParams() {
-    const agencies = await fetch("https://api.my-precious-time.com/v1/agencies/all").then(r => r.json());
+    const agencies = await fetch(`${BASE_URL}/v1/agencies/all`).then(r => r.json());
     const paths = agencies.map((/** @type {{ state: string; name: string; id: any; }} */ feed) => (
         {
             id: feed.id
