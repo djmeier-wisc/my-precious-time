@@ -1,4 +1,4 @@
-const BASE_URL = "https://api-mpt.dougmeier.dev";
+export const BASE_URL = "https://api-mpt.dougmeier.dev";
 // export const BASE_URL = "http://localhost:8080";
 import dayjs from "dayjs";
 

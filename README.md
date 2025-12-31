@@ -22,4 +22,4 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Learn More
 
-This is the source code of [my-precious-time](https://my-precious-time.com) . Automatic deployments are configured to begin upon merge to master branch, so that branch is protected. Feel free to check out the issues tab to begin contributing, or open one if you have 
+This is the source code of [my-precious-time](https://mpt.dougmeier.dev) . Automatic deployments are configured to begin upon merge to master branch, so that branch is protected. Feel free to check out the issues tab to begin contributing, or open one if you have 
