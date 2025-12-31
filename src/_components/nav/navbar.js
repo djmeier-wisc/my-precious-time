@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import KofiButton from 'kofi-button';
 import CustomMenuItem from './menuItem';
 import Link from 'next/link';
+import { BASE_URL } from 'api/transitDelayServiceApi';
 
 
 export default function MainNav() {
@@ -23,7 +24,9 @@ export default function MainNav() {
         setAnchorElNav(null);
     };
     return (
-        <AppBar position="static" className='z-50 border-solid border-b-4 border-slate-800 bg-slate-300 text-slate-800 sticky top-0' sx={{ bgcolor: "rgb(203 213 225)", color: "rgb(30 41 59)", height: 65}}>
+        <AppBar
+            className='z-50 border-solid border-b-4 border-slate-800 bg-slate-300 text-slate-800 sticky top-0'
+            sx={{bgcolor: "rgb(203 213 225)", color: "rgb(30 41 59)", height: 65}}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
@@ -31,7 +34,7 @@ export default function MainNav() {
                         noWrap
                         sx={{
                             mr: 2,
-                            display: { xs: 'none', md: 'flex' },
+                            display: {xs: 'none', md: 'flex'},
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
@@ -43,7 +46,7 @@ export default function MainNav() {
                             My Precious Time
                         </Link>
                     </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -53,7 +56,8 @@ export default function MainNav() {
                             color="inherit"
                         >
                             <svg className="h-8 w-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                      d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
                             </svg>
                         </IconButton>
                         <Menu
@@ -71,12 +75,13 @@ export default function MainNav() {
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
                             sx={{
-                                display: { xs: 'block', md: 'none' },
+                                display: {xs: 'block', md: 'none'},
                             }}
                         >
-                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="available transit feeds" url="/agencies" />
-                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="report an issue" url="https://github.com/djmeier-wisc/my-precious-time/issues/new" />
-                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="api reference" url="https://api.my-precious-time.com/webjars/swagger-ui/index.html" />
+                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="report an issue"
+                                            url="https://github.com/djmeier-wisc/my-precious-time/issues/new"/>
+                            <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="api reference"
+                                            url={`${BASE_URL}/webjars/swagger-ui/index.html`}/>
                         </Menu>
                     </Box>
                     <Typography
@@ -84,7 +89,7 @@ export default function MainNav() {
                         noWrap
                         sx={{
                             mr: 2,
-                            display: { xs: 'flex', md: 'none' },
+                            display: {xs: 'flex', md: 'none'},
                             flexGrow: 1,
                             fontFamily: 'monospace',
                             fontWeight: 700,
@@ -97,12 +102,13 @@ export default function MainNav() {
                             MPT
                         </Link>
                     </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="available transit feeds" url="/agencies" />
-                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="report an issue" url="https://github.com/djmeier-wisc" />
-                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="api reference" url="https://api.my-precious-time.com/webjars/swagger-ui/index.html" />
+                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="report an issue"
+                                        url="https://github.com/djmeier-wisc/my-precious-time/issues/new"/>
+                        <CustomMenuItem handleCloseNavMenu={handleCloseNavMenu} name="api reference"
+                                        url={`${BASE_URL}/webjars/swagger-ui/index.html`}/>
                     </Box>
-                    <KofiButton color='#1e293b' title='Support Us' kofiID='doug_meier' />
+                    <KofiButton color='#1e293b' title='Support Us' kofiID='doug_meier'/>
                 </Toolbar>
             </Container>
         </AppBar>
