@@ -26,23 +26,23 @@ export default function ViewPage({feedId, agencyName}) {
     const daysOptions = ["1 Day", "7 Days", "30 Days", "90 Days", "1 Year"];
     const [routes, setRoutes] = useState([]);
     const [days, setDays] = useState("7 Days");
-    const [daysInt, setDaysInt] = useState(7);
+    const [daysInt, setDaysInt] = useState({days: 7, units: 7});
     useEffect(() => {
         switch (days) {
             case "1 Day":
-                setDaysInt(1);
+                setDaysInt({days: 1, units: 24});
                 break;
             case "7 Days":
-                setDaysInt(7);
+                setDaysInt({days: 7, units: 7});
                 break;
             case "30 Days":
-                setDaysInt(30);
+                setDaysInt({days: 30, units: 30});
                 break;
             case "90 Days":
-                setDaysInt(90);
+                setDaysInt({days: 90, units: 30});
                 break;
             case "1 Year":
-                setDaysInt(365);
+                setDaysInt({days: 365, units: 52});
                 break;
         }
     }, [days])
@@ -76,7 +76,7 @@ export default function ViewPage({feedId, agencyName}) {
                         </Tooltip>
                     </div>
                     <div style={{height: 500}} className="h-full w-full grid place-items-center">
-                        <OpenStreetMapByFeedId feedId={feedId} selectedRoutes={routes} numDays={daysInt}/>
+                        <OpenStreetMapByFeedId feedId={feedId} selectedRoutes={routes} numDays={daysInt.days}/>
                     </div>
                 </div>
                 <div className="bg-slate-300 p-4 rounded-2xl shadow-lg text-slate-800">
@@ -91,8 +91,9 @@ export default function ViewPage({feedId, agencyName}) {
                         graphType={GraphTypes.AVG}
                         yAxisDesc={'Average Delay (Minutes)'}
                         routes={routes}
-                        daysInPast={daysInt}
+                        daysInPast={daysInt.days}
                         yAxisMin={0}
+                        units={daysInt.units}
                     />
                 </div>
                 <div className="bg-slate-300 p-4 rounded-2xl shadow-lg text-slate-800">
@@ -107,8 +108,10 @@ export default function ViewPage({feedId, agencyName}) {
                         graphType={GraphTypes.PERCENT}
                         yAxisDesc={'Percent On Time Delay (Minutes)'}
                         routes={routes}
-                        daysInPast={daysInt}
-                    />
+                        daysInPast={daysInt.days}
+                        units={daysInt.units} 
+                        yAxisMin={undefined}                    
+                        />
                 </div>
                 <div className="bg-slate-300 p-4 rounded-2xl shadow-lg text-slate-800">
                     <div className="flex flex-row">
@@ -122,8 +125,9 @@ export default function ViewPage({feedId, agencyName}) {
                         graphType={GraphTypes.MAX}
                         yAxisDesc={'Max Delay (Minutes)'}
                         routes={routes}
-                        daysInPast={daysInt}
+                        daysInPast={daysInt.days}
                         yAxisMin={0}
+                        units={daysInt.units}
                     />
                 </div>
             </main>

@@ -155,7 +155,6 @@ export default function MapBackground() {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
             <Polyline positions={route} color="red" weight={4}/>
-            <TrainMover route={route}/>
         </MapContainer>
     );
 }

@@ -34,7 +34,7 @@ export async function getGeoJsonFor(feedId, routes, numDays, hourStarted, hourEn
     try {
         const res = await fetch(BASE_URL + "/v1/map/" + feedId + "/delayLines?" + u.toString())
         if (!res.ok) {
-            console.log("Failed to get geoJson for feedId: " + feedId + "and route: " + route);
+            console.log("Failed to get geoJson for feedId: " + feedId + "and route: " + routes);
             return null;
         }
         return res.json();
@@ -65,11 +65,11 @@ export async function getGraphData(feedId, type = "average", graphOptions) {
     else return null;
 }
 
-export async function getGraphDataByDays(feedId, type, daysInPast, routes) {
+export async function getGraphDataByDays(feedId, type, daysInPast, routes, units = undefined) {
     let graphOptions = {
         startTime: dayjs().endOf('day').subtract(daysInPast, 'days').unix(),
         endTime: dayjs().endOf('day').unix(),
-        units: daysInPast === 1 ? 24 : daysInPast,
+        units: units,
         routes: routes
     };
     return getGraphData(feedId, type, graphOptions)
